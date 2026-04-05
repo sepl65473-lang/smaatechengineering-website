@@ -1,0 +1,13 @@
+[
+    {
+        "DomainName": "dev.smaatechengineering.com",
+        "ValidationDomain": "dev.smaatechengineering.com",
+        "ValidationStatus": "PENDING_VALIDATION",
+        "ResourceRecord": {
+            "Name": "_32e6b34108f91230f2b31138b7bef593.dev.smaatechengineering.com.",
+            "Type": "CNAME",
+            "Value": "_5311c7f4dade3aff094dfb8b34c6a517.jkddzztszm.acm-validations.aws."
+        },
+        "ValidationMethod": "DNS"
+    }
+]

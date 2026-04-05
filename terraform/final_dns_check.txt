@@ -1,0 +1,4 @@
+Server:  dns.google
+Address:  8.8.8.8
+
+_b7e90c885da8129e1c3a6477c77c6677.dev.smaatechengineering.com	canonical name = _0e1c26b56e6d97c5555677c77c66777b.mzlghqyxwv.acm-validations.aws

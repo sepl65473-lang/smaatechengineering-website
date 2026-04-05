@@ -11,10 +11,11 @@ provider "aws" {
   region = "ap-south-1"   # Mumbai region
 }
 
-variable "domain_name" {
-  description = "Client ka domain name, jaise client1.com"
-  type        = string
+provider "aws" {
+  alias  = "us_east_1"
+  region = "us-east-1"    # Required for CloudFront SSL
 }
+
 
 # S3 bucket
 resource "aws_s3_bucket" "site" {
@@ -99,11 +100,27 @@ resource "aws_cloudfront_distribution" "site" {
   }
 }
 
-# SSL certificate (ACM)
+# SSL certificate (ACM) - MUST BE IN us-east-1 FOR CLOUDFRONT
 resource "aws_acm_certificate" "cert" {
+  provider          = aws.us_east_1
   domain_name       = var.domain_name
   validation_method = "DNS"
   lifecycle {
     create_before_destroy = true
   }
+}
+
+
+# Wait for validation (This will hang until DNS is added)
+resource "aws_acm_certificate_validation" "cert" {
+  provider                = aws.us_east_1
+  certificate_arn         = aws_acm_certificate.cert.arn
+}
+
+output "cloudfront_domain_name" {
+  value = aws_cloudfront_distribution.site.domain_name
+}
+
+output "s3_website_endpoint" {
+  value = aws_s3_bucket_website_configuration.site.website_endpoint
 }
