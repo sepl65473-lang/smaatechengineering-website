@@ -84,7 +84,7 @@ const syncDB = async () => {
   try {
     const db = require('./config/db');
 
-    // Create tables if not exist (using 'jobs' table name consistently)
+    // 1. Create jobs table
     await db.query(`
       CREATE TABLE IF NOT EXISTS jobs (
         id SERIAL PRIMARY KEY,
@@ -96,7 +96,11 @@ const syncDB = async () => {
         requirements TEXT,
         is_active BOOLEAN DEFAULT true,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
+      )
+    `);
+
+    // 2. Create applications table
+    await db.query(`
       CREATE TABLE IF NOT EXISTS career_applications (
         id SERIAL PRIMARY KEY,
         full_name VARCHAR(255) NOT NULL,
@@ -108,32 +112,34 @@ const syncDB = async () => {
         status VARCHAR(50) DEFAULT 'new',
         ip_address VARCHAR(45),
         submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
+      )
     `);
 
-    // Insert sample job if table is empty
-    const jobCountResult = await db.query('SELECT COUNT(*) FROM jobs');
-    const count = parseInt(jobCountResult.rows[0].count);
-    console.log(`Current jobs in database: ${count}`);
+    // 3. Robust Seeding Check
+    const jobCheck = await db.query('SELECT id FROM jobs LIMIT 1');
+    const jobsExist = jobCheck.rows && jobCheck.rows.length > 0;
+    
+    console.log(`Database sync check: jobs_exist=${jobsExist}`);
 
-    if (count === 0) {
-      console.log('Inserting sample jobs...');
-      await db.query(`
-        INSERT INTO jobs (title, department, location, type, description, requirements) VALUES 
-        ('IoT Systems Engineer', 'Engineering', 'Remote / Mumbai', 'Full-time', 
-         'Responsible for maintaining and optimizing our cold storage IoT infrastructure.', 
-         '3+ years experience, Node.js, AWS, IoT knowledge'),
-        ('Full Stack Developer', 'Technology', 'Remote / Bhubaneswar', 'Full-time', 
-         'Build and maintain web applications for our cold storage management platform.', 
-         '2+ years in React, Node.js, PostgreSQL.');
-      `);
-      console.log('✅ Sample jobs created successfully.');
+    if (!jobsExist) {
+      console.log('Seeding database with sample jobs...');
+      const sampleJobs = [
+        ['IoT Systems Engineer', 'Engineering', 'Remote / Mumbai', 'Full-time', 'Design and maintain IoT monitoring systems.', 'Node.js, AWS, IoT'],
+        ['Full Stack Developer', 'Technology', 'Remote / Bhubaneswar', 'Full-time', 'Build and maintain web apps.', 'React, Node.js, PostgreSQL']
+      ];
+      
+      for (const job of sampleJobs) {
+        await db.query(
+          'INSERT INTO jobs (title, department, location, type, description, requirements) VALUES ($1, $2, $3, $4, $5, $6)',
+          job
+        );
+      }
+      console.log('✅ Seeding complete.');
     }
 
-    console.log('Database synced successfully.');
+    console.log('🚀 Database synchronized successfully.');
   } catch (error) {
-    console.error('DB sync warning (server still running):', error.message);
-    // Don't crash - server is already listening
+    console.error('❌ DB sync error (server still running):', error.message);
   }
 };
 
