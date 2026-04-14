@@ -36,8 +36,8 @@ const upload = multer({
 // SMTP Transporter
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: false, // true for 465
+  port: parseInt(process.env.SMTP_PORT) || 587,
+  secure: false,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS
@@ -49,14 +49,14 @@ router.post('/', upload.single('resume'), async (req, res) => {
   const ip_address = req.ip;
 
   try {
-    // 1. Duplicate check (within 30 days)
-    const [existing] = await db.query(
-      'SELECT id FROM career_applications WHERE email = $1 AND position = $2 AND submitted_at > NOW() - INTERVAL \'30 days\'',
+    // 1. Duplicate check (within 30 days) — PostgreSQL style
+    const existing = await db.query(
+      "SELECT id FROM career_applications WHERE email = $1 AND position = $2 AND submitted_at > NOW() - INTERVAL '30 days'",
       [email, position]
     );
 
-    if (existing.length > 0) {
-      if (req.file) fs.unlinkSync(req.file.path); // Delete uploaded file
+    if (existing.rows.length > 0) {
+      if (req.file) fs.unlinkSync(req.file.path);
       return res.status(400).json({ error: 'You have already applied for this position within the last 30 days.' });
     }
 
@@ -64,40 +64,33 @@ router.post('/', upload.single('resume'), async (req, res) => {
     const resume_path = req.file ? req.file.path : '';
     await db.query(
       'INSERT INTO career_applications (full_name, email, phone, position, resume_path, cover_letter, ip_address) VALUES ($1, $2, $3, $4, $5, $6, $7)',
-      [full_name, email, phone, position, resume_path, cover_letter, ip_address]
+      [full_name, email, phone, position, resume_path, cover_letter || '', ip_address]
     );
 
-    // 3. Send Success Response to User (Don't wait for emails)
+    // 3. Respond immediately
     res.json({ success: 'Application submitted successfully! Our HR team will contact you soon.' });
 
-    // 4. Send Emails in Background
-    // To Admin
-    const adminMailOptions = {
+    // 4. Send emails in background (non-blocking)
+    if (process.env.SMTP_HOST) {
+      const adminMail = {
         from: `"${full_name}" <${process.env.SMTP_USER}>`,
-        to: process.env.ADMIN_EMAIL,
+        to: process.env.ADMIN_EMAIL || 'Info@smaatechengineering.com',
         subject: `New Job Application - ${position}`,
-        text: `A new application has been received.\n\nName: ${full_name}\nEmail: ${email}\nPhone: ${phone}\nPosition: ${position}\n\nCover Letter:\n${cover_letter}`,
-        attachments: [
-            {
-                filename: req.file.originalname,
-                path: req.file.path
-            }
-        ]
-    };
-
-    // To Applicant
-    const applicantMailOptions = {
+        text: `New application received.\n\nName: ${full_name}\nEmail: ${email}\nPhone: ${phone}\nPosition: ${position}\n\nCover Letter:\n${cover_letter}`,
+        attachments: req.file ? [{ filename: req.file.originalname, path: req.file.path }] : []
+      };
+      const applicantMail = {
         from: `"Smaatech HR" <${process.env.SMTP_USER}>`,
         to: email,
         subject: 'Application Confirmation - Smaatech Engineering',
-        text: `Dear ${full_name},\n\nThank you for applying for the ${position} position at Smaatech Engineering. We have received your resume and our recruitment team will review it shortly.\n\nRegards,\nHR Team\nSmaatech Engineering Pvt Ltd`
-    };
-
-    transporter.sendMail(adminMailOptions).catch(err => console.error('Admin Email Error:', err));
-    transporter.sendMail(applicantMailOptions).catch(err => console.error('Applicant Email Error:', err));
+        text: `Dear ${full_name},\n\nThank you for applying for the ${position} position at Smaatech Engineering. We will review your profile and get back to you shortly.\n\nRegards,\nHR Team\nSmaatech Engineering Pvt Ltd`
+      };
+      transporter.sendMail(adminMail).catch(err => console.error('Admin email error:', err.message));
+      transporter.sendMail(applicantMail).catch(err => console.error('Applicant email error:', err.message));
+    }
 
   } catch (error) {
-    console.error('Application Error:', error);
+    console.error('Application Error:', error.message);
     if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
     res.status(500).json({ error: 'Failed to process application. Please try again later.' });
   }
