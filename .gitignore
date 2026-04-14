@@ -1,4 +1,7 @@
 node_modules/
+terraform/.terraform/
+*.exe
+*.zip
 .env
 *.log
 npm-debug.log*
