@@ -1,263 +1,519 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Careers | Smaatech Engineering Pvt Ltd</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | Smaatech Engineering Pvt Ltd</title>
+    <meta name="description" content="Join Smaatech Engineering and be part of a growing engineering excellence story. Explore current job openings.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #10b981; /* Emerald 500 */
+            --primary-dark: #059669;
+            --secondary: #0ea5e9; /* Sky 500 */
+            --bg-dark: #020617; /* Slate 950 */
+            --bg-card: rgba(30, 41, 59, 0.4); /* Slate 800 with opacity */
+            --text-main: #f8fafc; /* Slate 50 */
+            --text-dim: #94a3b8; /* Slate 400 */
+            --border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+        }
 
-    :root {
-      --brand:   #059669;
-      --brand-lt:#10b981;
-      --accent:  #38bdf8;
-      --bg-900:  #0f172a;
-      --bg-800:  #1e293b;
-      --bg-700:  #334155;
-      --text:    #f1f5f9;
-      --muted:   #94a3b8;
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      background: var(--bg-900);
-      color: var(--text);
-      font-family: 'Inter', system-ui, sans-serif;
-      min-height: 100vh;
-    }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-      background: rgba(15,23,42,0.85);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      padding: 1rem 0;
-    }
-    .nav-inner {
-      max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; }
-    .logo span { color: var(--brand); }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color .2s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--text); }
-    .btn { display: inline-block; padding: .6rem 1.4rem; border-radius: 9999px; font-weight: 700; font-size: .85rem; text-decoration: none; cursor: pointer; border: none; transition: all .25s; }
-    .btn-primary { background: var(--brand); color: #fff; }
-    .btn-primary:hover { background: var(--brand-lt); box-shadow: 0 0 24px rgba(16,185,129,.4); transform: translateY(-1px); }
+        /* --- Header --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
 
-    /* ── HERO ── */
-    header { padding: 8rem 1.5rem 4rem; text-align: center; }
-    header h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; letter-spacing: -2px; line-height: 1.1; margin-bottom: 1.2rem; }
-    .gradient-text { background: linear-gradient(135deg, var(--brand-lt), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    header p { color: var(--muted); font-size: 1.15rem; font-weight: 300; max-width: 560px; margin: 0 auto; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
 
-    /* ── SECTIONS ── */
-    section { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 5rem; }
-    section h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; color: rgba(241,245,249,.9); }
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* ── JOB CARD ── */
-    .job-card {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 1.25rem;
-      padding: 2rem;
-      margin-bottom: 1.25rem;
-      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem;
-      transition: border-color .25s, background .25s;
-    }
-    .job-card:hover { border-color: rgba(16,185,129,.3); background: rgba(255,255,255,.05); }
-    .job-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: .6rem; }
-    .job-meta { display: flex; flex-wrap: wrap; gap: 1rem; }
-    .badge {
-      display: inline-flex; align-items: center; gap: .3rem;
-      font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
-      color: var(--muted);
-    }
-    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); display: inline-block; }
-    .job-desc { color: var(--muted); font-size: .9rem; line-height: 1.65; margin-top: .8rem; width: 100%; }
-    #no-jobs { text-align: center; padding: 4rem; color: var(--muted); font-size: 1.1rem; font-style: italic; background: rgba(255,255,255,.02); border-radius: 1.25rem; border: 1px solid rgba(255,255,255,.06); }
-    .loading { text-align: center; padding: 3rem; color: var(--muted); font-size: 1rem; animation: pulse 1.5s ease-in-out infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: white;
+            letter-spacing: -1px;
+        }
 
-    /* ── FORM ── */
-    .form-card {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 1.5rem;
-      padding: 2.5rem 3rem;
-    }
-    .form-card h2 { margin-bottom: 2rem; }
-    .form-card h2 span { color: var(--brand); }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
-    @media(max-width:640px){ .form-grid{ grid-template-columns:1fr; } .form-card{ padding:1.5rem; } .nav-links{ display:none; } }
-    label { display: block; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: .5rem; }
-    input, textarea {
-      width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
-      border-radius: .75rem; padding: .9rem 1rem; color: var(--text); font-size: .95rem; font-family: inherit;
-      transition: border-color .2s;
-      outline: none;
-    }
-    input:focus, textarea:focus { border-color: rgba(16,185,129,.5); }
-    textarea { resize: none; height: 110px; }
-    input[type="file"] { padding: .7rem 1rem; cursor: pointer; }
-    .btn-submit {
-      width: 100%; padding: 1.1rem; border-radius: 9999px; font-size: 1.1rem; font-weight: 700;
-      background: var(--brand); color: #fff; cursor: pointer; border: none;
-      transition: all .25s; margin-top: .5rem;
-    }
-    .btn-submit:hover:not(:disabled) { background: var(--brand-lt); box-shadow: 0 0 30px rgba(16,185,129,.4); transform: translateY(-2px); }
-    .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
-    #form-msg { text-align: center; font-size: .9rem; font-weight: 600; margin-top: 1rem; min-height: 1.5rem; }
-    .msg-ok  { color: #34d399; }
-    .msg-err { color: #f87171; }
+        .logo span { color: var(--primary); }
 
-    /* ── FOOTER ── */
-    footer { background: #080f1e; border-top: 1px solid rgba(255,255,255,.05); padding: 2.5rem 1.5rem; text-align: center; color: var(--muted); font-size: .85rem; }
-  </style>
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+        /* --- Hero --- */
+        .hero {
+            padding: 10rem 0 6rem;
+            background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            background: linear-gradient(to bottom, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* --- Job Listings --- */
+        .section-header {
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .section-header h2 { font-size: 2rem; font-weight: 700; }
+
+        .job-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 6rem;
+        }
+
+        .job-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .job-card:hover { border-color: var(--primary); transform: translateY(-5px); background: rgba(30, 41, 59, 0.6); }
+
+        .job-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+        }
+
+        .job-desc {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .btn-apply-scroll {
+            display: inline-block;
+            text-align: center;
+            background: var(--primary);
+            color: #020617;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .btn-apply-scroll:hover { background: white; transform: scale(1.05); }
+
+        /* --- Form Section --- */
+        #application-section {
+            padding: 6rem 0;
+            background: rgba(15, 23, 42, 0.5);
+            border-top: 1px solid var(--border);
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .form-group { margin-bottom: 1.5rem; position: relative; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dim);
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            padding: 0.85rem 1rem;
+            border-radius: 0.75rem;
+            color: white;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus { border-color: var(--primary); }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 2rem;
+        }
+
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); }
+
+        .error-msg { font-size: 0.75rem; color: #ef4444; margin-top: 0.25rem; display: none; }
+
+        /* --- Footer --- */
+        footer {
+            padding: 6rem 0 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand h4 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1.5rem; }
+        .footer-brand p { color: var(--text-dim); max-width: 300px; }
+
+        .footer-col h5 { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem; color: white; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 0.75rem; }
+        .footer-col a { text-decoration: none; color: var(--text-dim); font-size: 0.9rem; transition: color 0.3s; }
+        .footer-col a:hover { color: var(--primary); }
+
+        .footer-bottom {
+            padding-top: 3rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+
+        /* --- Utils --- */
+        .hidden-field { display: none !important; }
+        
+        @media (max-width: 768px) {
+            .form-row { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .hero h1 { font-size: 3rem; }
+            .nav-links { display: none; }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <div class="nav-inner">
-      <div class="logo">Smaatech<span>.</span></div>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/#about">About</a>
-        <a href="/#services">Divisions</a>
-        <a href="/career" class="active">Careers</a>
-      </div>
-      <a href="/" class="btn btn-primary">Back to Home</a>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <header>
-    <h1>Join Our <span class="gradient-text">Team</span></h1>
-    <p>Be part of a growing engineering excellence story. We are looking for innovators, dreamers, and doers.</p>
-  </header>
-
-  <!-- JOB LISTINGS -->
-  <section id="jobs-section">
-    <h2>Open Opportunities</h2>
-    <div id="job-listings">
-      <div class="loading">Loading career opportunities...</div>
-    </div>
-  </section>
-
-  <!-- APPLICATION FORM -->
-  <section id="apply-section" style="display:none;">
-    <div class="form-card">
-      <h2>Submit Your <span>Application</span></h2>
-      <form id="career-form" enctype="multipart/form-data">
-        <input type="hidden" name="position" id="selected-position">
-        <div class="form-grid">
-          <div>
-            <label for="full_name">Full Name</label>
-            <input type="text" id="full_name" name="full_name" placeholder="Your full name" required>
-          </div>
-          <div>
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="you@email.com" required>
-          </div>
+    <header>
+        <div class="container nav-wrapper">
+            <a href="/" class="logo">Smaatech<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#services">Services</a></li>
+                <li><a href="/career" class="active">Careers</a></li>
+                <li><a href="/#contact">Contact</a></li>
+            </ul>
         </div>
-        <div class="form-grid">
-          <div>
-            <label for="phone">Phone (10-digit)</label>
-            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="9876543210" required>
-          </div>
-          <div>
-            <label for="resume">Resume (PDF/DOCX, Max 2MB)</label>
-            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
-          </div>
-        </div>
-        <div style="margin-bottom:1.25rem;">
-          <label for="cover_letter">Brief Cover Letter (Optional)</label>
-          <textarea id="cover_letter" name="cover_letter" placeholder="Why do you want to join Smaatech?"></textarea>
-        </div>
-        <button type="submit" id="submit-btn" class="btn-submit">Submit Application</button>
-        <p id="form-msg"></p>
-      </form>
-    </div>
-  </section>
+    </header>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2026 Smaatech Engineering Group. All rights reserved.</p>
-    <p style="margin-top:.5rem;"><a href="#" style="color:var(--muted);text-decoration:none;margin:0 .75rem;">Privacy Policy</a><a href="#" style="color:var(--muted);text-decoration:none;margin:0 .75rem;">Terms of Service</a></p>
-  </footer>
+    <section class="hero">
+        <div class="container">
+            <h1>Join Our Team</h1>
+            <p>Be part of a growing engineering excellence story. We're looking for passionate individuals to build the future of cold storage and industrial automation.</p>
+        </div>
+    </section>
 
-  <script>
-    async function loadJobs() {
-      const container = document.getElementById('job-listings');
-      try {
-        const res = await fetch('/api/jobs');
-        const jobs = await res.json();
-        if (!jobs.length) {
-          container.innerHTML = '<div id="no-jobs">No openings at the moment. Check back soon!</div>';
-          return;
-        }
-        container.innerHTML = jobs.map(job => `
-          <div class="job-card">
-            <div style="flex:1;min-width:220px;">
-              <h3>${job.title}</h3>
-              <div class="job-meta">
-                ${job.location ? `<span class="badge"><span class="badge-dot"></span>${job.location}</span>` : ''}
-                ${job.type || job.employment_type ? `<span class="badge"><span class="badge-dot"></span>${job.type || job.employment_type}</span>` : ''}
-                ${job.experience ? `<span class="badge"><span class="badge-dot"></span>${job.experience}</span>` : ''}
-                ${job.department ? `<span class="badge"><span class="badge-dot"></span>${job.department}</span>` : ''}
-              </div>
-              ${job.description ? `<p class="job-desc">${job.description}</p>` : ''}
+    <div class="container">
+        <div class="section-header">
+            <h2>Open Positions</h2>
+        </div>
+        
+        <div id="job-listings" class="job-grid">
+            <!-- Dynamic Content -->
+            <div class="job-card" style="grid-column: 1/-1; text-align: center;">
+                <p>Loading opportunities...</p>
             </div>
-            <button onclick="openApplyForm('${job.title.replace(/'/g,"\\'")}' )" class="btn btn-primary">Apply Now</button>
-          </div>
-        `).join('');
-      } catch (e) {
-        container.innerHTML = '<div id="no-jobs">Unable to load jobs. Please refresh the page.</div>';
-      }
-    }
+        </div>
+    </div>
 
-    function openApplyForm(title) {
-      document.getElementById('selected-position').value = title;
-      const applySection = document.getElementById('apply-section');
-      applySection.style.display = 'block';
-      setTimeout(() => applySection.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-    }
+    <section id="application-section">
+        <div class="container">
+            <div class="form-container">
+                <header style="margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 2rem;">
+                    <h2 style="font-size: 1.75rem; font-weight: 800;">Apply Now</h2>
+                    <p style="color: var(--text-dim); font-size: 0.9rem;">Submit your details and we'll be in touch.</p>
+                </header>
 
-    document.getElementById('career-form').onsubmit = async (e) => {
-      e.preventDefault();
-      const msg = document.getElementById('form-msg');
-      const btn = document.getElementById('submit-btn');
-      btn.disabled = true;
-      btn.textContent = 'Submitting...';
-      msg.textContent = '';
-      msg.className = '';
-      try {
-        const res = await fetch('/api/apply', { method: 'POST', body: new FormData(e.target) });
-        const data = await res.json();
-        if (data.success) {
-          msg.className = 'msg-ok';
-          msg.textContent = '✅ ' + data.success;
-          e.target.reset();
-          btn.textContent = 'Submitted!';
-        } else {
-          msg.className = 'msg-err';
-          msg.textContent = '❌ ' + (data.error || 'Submission failed.');
-          btn.disabled = false;
-          btn.textContent = 'Submit Application';
+                <form id="applyForm" enctype="multipart/form-data">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" name="full_name" class="form-input" placeholder="John Doe" required>
+                            <div class="error-msg" id="err-full_name"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" name="email" class="form-input" placeholder="john@example.com" required>
+                            <div class="error-msg" id="err-email"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" name="phone" class="form-input" placeholder="10-digit number" pattern="[0-9]{10}" required>
+                            <div class="error-msg" id="err-phone"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Position</label>
+                            <select name="position" id="positionSelect" class="form-input" style="background-color: #020617; appearance: none;" required>
+                                <option value="">Select a position</option>
+                            </select>
+                            <div class="error-msg" id="err-position"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Resume (PDF/DOCX, max 2MB)</label>
+                        <input type="file" name="resume" class="form-input" accept=".pdf,.doc,.docx" required>
+                        <div class="error-msg" id="err-resume"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cover Letter (Optional)</label>
+                        <textarea name="cover_letter" class="form-input" rows="4" placeholder="Tell us why you're a great fit..."></textarea>
+                    </div>
+
+                    <!-- Honeypot -->
+                    <div class="hidden-field">
+                        <input type="text" name="honeypot">
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submitBtn">Send Application</button>
+                    <div id="form-feedback" style="margin-top: 1.5rem; text-align: center; font-weight: 700; display: none;"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h4>Smaatech<span>.</span></h4>
+                    <p>Advanced engineering solutions for cold storage and industrial monitoring.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>Links</h5>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/career">Careers</a></li>
+                        <li><a href="/#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Social</h5>
+                    <ul>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Contact</h5>
+                    <p style="color: var(--text-dim); font-size: 0.9rem;">
+                        Info@smaatechengineering.com<br>
+                        Odisha, India
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Smaatech Engineering Pvt Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Fetch Jobs
+        async function fetchJobs() {
+            try {
+                const res = await fetch('/api/jobs');
+                const jobs = await res.json();
+                
+                const grid = document.getElementById('job-listings');
+                const select = document.getElementById('positionSelect');
+                
+                if (jobs.length === 0) {
+                    grid.innerHTML = '<div style="grid-column: 1/-1; padding: 4rem; text-align: center; background: var(--bg-card); border-radius: 2rem;"><h3>No openings at the moment.</h3><p style="color: var(--text-dim)">Check back soon!</p></div>';
+                    return;
+                }
+
+                grid.innerHTML = '';
+                jobs.forEach(job => {
+                    // Populate Grid
+                    const card = document.createElement('div');
+                    card.className = 'job-card';
+                    card.innerHTML = `
+                        <h3>${job.title}</h3>
+                        <div class="job-meta">
+                            <span class="meta-item">${job.location}</span>
+                            <span class="meta-item">${job.experience}</span>
+                            <span class="meta-item">${job.employment_type}</span>
+                        </div>
+                        <p class="job-desc">${job.description}</p>
+                        <a href="#application-section" class="btn-apply-scroll" onclick="document.querySelector('#positionSelect').value='${job.title}'">Apply Now</a>
+                    `;
+                    grid.appendChild(card);
+
+                    // Populate Select
+                    const opt = document.createElement('option');
+                    opt.value = job.title;
+                    opt.textContent = job.title;
+                    select.appendChild(opt);
+                });
+            } catch (err) {
+                console.error('Fetch Jobs Failed:', err);
+            }
         }
-      } catch {
-        msg.className = 'msg-err';
-        msg.textContent = '❌ Network error. Please try again.';
-        btn.disabled = false;
-        btn.textContent = 'Submit Application';
-      }
-    };
 
-    loadJobs();
-  </script>
+        // Form Submission
+        document.getElementById('applyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const btn = document.getElementById('submitBtn');
+            const feedback = document.getElementById('form-feedback');
+            
+            // Basic UI lock
+            btn.disabled = true;
+            btn.textContent = 'Processing...';
+            feedback.style.display = 'none';
+
+            // Clear errors
+            document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+
+            // 1. Fetch CSRF token
+            let csrfToken = '';
+            try {
+                const csrfRes = await fetch('/api/csrf-token');
+                const csrfData = await csrfRes.json();
+                csrfToken = csrfData.csrfToken;
+            } catch (err) {
+                console.error('CSRF Fetch Failed:', err);
+            }
+
+            const formData = new FormData(form);
+
+            try {
+                const res = await fetch('/api/apply', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-Token': csrfToken
+                    },
+                    body: formData
+                });
+                
+                const result = await res.json();
+                
+                if (res.ok) {
+                    feedback.textContent = result.success;
+                    feedback.style.color = 'var(--primary)';
+                    form.reset();
+                } else {
+                    feedback.textContent = result.error || 'Something went wrong.';
+                    feedback.style.color = '#ef4444';
+                }
+                feedback.style.display = 'block';
+            } catch (err) {
+                feedback.textContent = 'Server connection failed.';
+                feedback.style.color = '#ef4444';
+                feedback.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Send Application';
+            }
+        });
+
+        // Init
+        fetchJobs();
+    </script>
 </body>
 </html>

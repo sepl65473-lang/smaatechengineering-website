@@ -27,6 +27,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// CSRF Protection
+const csrf = require('csurf');
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+const csrfProtection = csrf({ cookie: true });
+// Note: We'll apply this to the form route and the submission route specifically later
+// to avoid blocking static files or GET API.
+
 // Rate Limiting: 5 submissions per IP per hour for application endpoint
 const applyRateLimit = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
@@ -56,8 +64,14 @@ const applyRoutes = require('./routes/apply');
 const adminRoutes = require('./routes/admin');
 
 app.use('/api/jobs', jobRoutes);
-app.use('/api/apply', applyRateLimit, applyRoutes);
 app.use('/admin', adminRoutes);
+
+// CSRF Token endpoint
+app.get('/api/csrf-token', csrfProtection, (req, res) => {
+  res.json({ csrfToken: req.csrfToken() });
+});
+
+app.use('/api/apply', csrfProtection, applyRateLimit, applyRoutes);
 
 // Redirect old paths to main career page
 app.get('/career/index.html', (req, res) => res.redirect(301, '/career'));
@@ -84,39 +98,58 @@ const syncDB = async () => {
   try {
     const db = require('./config/db');
 
-    // 1. Create jobs table
+    // 1. Create job_postings table (MySQL style converted to PostgreSQL)
     await db.query(`
-      CREATE TABLE IF NOT EXISTS jobs (
+      CREATE TABLE IF NOT EXISTS job_postings (
         id SERIAL PRIMARY KEY,
-        title VARCHAR(255) NOT NULL,
-        department VARCHAR(255),
-        location VARCHAR(255) NOT NULL,
-        type VARCHAR(100),
-        description TEXT,
-        requirements TEXT,
+        title VARCHAR(150) NOT NULL,
+        location VARCHAR(150) NOT NULL,
+        experience VARCHAR(100) NOT NULL,
+        employment_type VARCHAR(50) DEFAULT 'Full-Time',
+        description TEXT NOT NULL,
         is_active BOOLEAN DEFAULT true,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
       )
     `);
 
-    // 2. Create applications table
+    // 2. Create career_applications table
     await db.query(`
       CREATE TABLE IF NOT EXISTS career_applications (
         id SERIAL PRIMARY KEY,
-        full_name VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL,
-        phone VARCHAR(20) NOT NULL,
-        position VARCHAR(255) NOT NULL,
+        full_name VARCHAR(100) NOT NULL,
+        email VARCHAR(150) NOT NULL,
+        phone VARCHAR(15) NOT NULL,
+        position VARCHAR(100) NOT NULL,
         resume_path VARCHAR(255) NOT NULL,
         cover_letter TEXT,
-        status VARCHAR(50) DEFAULT 'new',
         ip_address VARCHAR(45),
-        submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        status VARCHAR(50) DEFAULT 'new' CHECK (status IN ('new','reviewed','shortlisted','rejected')),
+        submitted_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
       )
     `);
 
-    // 3. Robust Seeding Check
-    const [jobRows] = await db.query('SELECT id FROM jobs LIMIT 1');
+    // 3. Create rate_limit_log table
+    await db.query(`
+      CREATE TABLE IF NOT EXISTS rate_limit_log (
+        id SERIAL PRIMARY KEY,
+        ip_address VARCHAR(45) NOT NULL,
+        attempted_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+    await db.query('CREATE INDEX IF NOT EXISTS idx_rate_limit_ip_time ON rate_limit_log (ip_address, attempted_at)');
+
+    // 4. Create admin_login_attempts table
+    await db.query(`
+      CREATE TABLE IF NOT EXISTS admin_login_attempts (
+        id SERIAL PRIMARY KEY,
+        ip_address VARCHAR(45) NOT NULL,
+        attempted_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+    await db.query('CREATE INDEX IF NOT EXISTS idx_admin_attempts_ip_time ON admin_login_attempts (ip_address, attempted_at)');
+
+    // 5. Robust Seeding Check
+    const [jobRows] = await db.query('SELECT id FROM job_postings LIMIT 1');
     const jobsExist = jobRows && jobRows.length > 0;
     
     console.log(`Database sync check: jobs_exist=${jobsExist}`);
@@ -124,13 +157,14 @@ const syncDB = async () => {
     if (!jobsExist) {
       console.log('Seeding database with sample jobs...');
       const sampleJobs = [
-        ['IoT Systems Engineer', 'Engineering', 'Remote / Mumbai', 'Full-time', 'Design and maintain IoT monitoring systems.', 'Node.js, AWS, IoT'],
-        ['Full Stack Developer', 'Technology', 'Remote / Bhubaneswar', 'Full-time', 'Build and maintain web apps.', 'React, Node.js, PostgreSQL']
+        ['Mechanical Engineer', 'Odisha, India', '2–5 Years', 'Full-Time', 'Responsible for design, analysis and maintenance of mechanical systems at project sites.'],
+        ['Site Supervisor', 'Mumbai, India', '3–6 Years', 'Full-Time', 'Oversee daily site operations, manage workforce and ensure project timelines are met.'],
+        ['QA/QC Engineer', 'Remote / On-site', '2–4 Years', 'Full-Time', 'Ensure quality standards are met across all engineering processes and documentation.']
       ];
       
       for (const job of sampleJobs) {
         await db.query(
-          'INSERT INTO jobs (title, department, location, type, description, requirements) VALUES ($1, $2, $3, $4, $5, $6)',
+          'INSERT INTO job_postings (title, location, experience, employment_type, description) VALUES ($1, $2, $3, $4, $5)',
           job
         );
       }

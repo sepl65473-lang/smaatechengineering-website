@@ -33,7 +33,7 @@
 
         <!-- Filters -->
         <div class="glass-card p-6 rounded-2xl mb-8">
-            <form action="/admin/applications" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <form action="/admin/applications" method="GET" class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
                 <div class="space-y-1">
                     <label class="text-[10px] font-bold uppercase text-slate-500">Position</label>
                     <select name="position" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white outline-none">
@@ -57,8 +57,19 @@
                     <label class="text-[10px] font-bold uppercase text-slate-500">From Date</label>
                     <input type="date" name="date_from" value="<%= filters.date_from %>" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white outline-none">
                 </div>
-                <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-slate-900 font-bold py-2 rounded-lg transition-all">Filter</button>
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold uppercase text-slate-500">To Date</label>
+                    <input type="date" name="date_to" value="<%= filters.date_to %>" class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white outline-none">
+                </div>
+                <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-slate-900 font-bold py-2 rounded-lg transition-all">Apply Filters</button>
             </form>
+            
+            <div class="mt-4 flex gap-4">
+                <a href="/admin/applications?date_range=today" class="text-xs font-bold text-slate-400 hover:text-emerald-400">Today</a>
+                <a href="/admin/applications?date_range=week" class="text-xs font-bold text-slate-400 hover:text-emerald-400">This Week</a>
+                <a href="/admin/applications?date_range=month" class="text-xs font-bold text-slate-400 hover:text-emerald-400">This Month</a>
+                <a href="/admin/applications" class="text-xs font-bold text-red-400/50 hover:text-red-400 ml-auto">Reset Filters</a>
+            </div>
         </div>
 
         <!-- Applications List -->

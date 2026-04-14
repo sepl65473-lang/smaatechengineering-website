@@ -37,9 +37,9 @@
         </header>
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
             <div class="glass-card p-6 rounded-2xl">
-                <p class="text-slate-500 text-sm font-bold uppercase tracking-widest mb-1">Total Applications</p>
+                <p class="text-slate-500 text-sm font-bold uppercase tracking-widest mb-1">Total</p>
                 <p class="text-4xl font-black text-white"><%= stats.total %></p>
             </div>
             <div class="glass-card p-6 rounded-2xl border-l-4 border-emerald-500">
@@ -49,6 +49,10 @@
             <div class="glass-card p-6 rounded-2xl">
                 <p class="text-slate-500 text-sm font-bold uppercase tracking-widest mb-1">Shortlisted</p>
                 <p class="text-4xl font-black text-white text-blue-400"><%= stats.shortlisted %></p>
+            </div>
+            <div class="glass-card p-6 rounded-2xl">
+                <p class="text-slate-500 text-sm font-bold uppercase tracking-widest mb-1">Rejected</p>
+                <p class="text-4xl font-black text-white text-red-500"><%= stats.rejected %></p>
             </div>
         </div>
 

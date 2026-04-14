@@ -43,6 +43,9 @@ export function Footer() {
                   <a href="#services" className="text-slate-400 hover:text-brand-400 font-light transition-colors text-sm">{item}</a>
                 </li>
               ))}
+              <li>
+                <a href="/career" className="text-slate-400 hover:text-brand-400 font-bold transition-colors text-sm mt-4 block">Careers</a>
+              </li>
             </ul>
           </div>
           

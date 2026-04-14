@@ -5,7 +5,7 @@ const db = require('../config/db');
 // GET all active job postings
 router.get('/', async (req, res) => {
   try {
-    const [rows] = await db.query('SELECT * FROM jobs WHERE is_active = true ORDER BY created_at DESC');
+    const [rows] = await db.query('SELECT * FROM job_postings WHERE is_active = true ORDER BY created_at DESC');
     res.json(rows);
   } catch (error) {
     console.error('Database Error:', error.message);

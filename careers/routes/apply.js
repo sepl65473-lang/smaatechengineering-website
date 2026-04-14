@@ -7,6 +7,7 @@ const db = require('../config/db');
 const nodemailer = require('nodemailer');
 
 // Configure Multer for Resume Uploads
+// Unique name: timestamp_random.ext
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const dir = './uploads/resumes/';
@@ -14,8 +15,10 @@ const storage = multer.diskStorage({
     cb(null, dir);
   },
   filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}_${Math.round(Math.random() * 1E9)}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
+    const timestamp = Date.now();
+    const random = Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname).toLowerCase();
+    cb(null, `${timestamp}_${random}${ext}`);
   }
 });
 
@@ -28,7 +31,7 @@ const upload = multer({
     if (allowedTypes.includes(ext)) {
       cb(null, true);
     } else {
-      cb(new Error('Invalid file type. Only PDF and DOCX are allowed.'));
+      cb(new Error('Invalid file type. Only PDF, DOC, and DOCX are allowed.'));
     }
   }
 });
@@ -45,11 +48,20 @@ const transporter = nodemailer.createTransport({
 });
 
 router.post('/', upload.single('resume'), async (req, res) => {
-  const { full_name, email, phone, position, cover_letter } = req.body;
+  const { full_name, email, phone, position, cover_letter, honeypot } = req.body;
   const ip_address = req.ip;
 
   try {
-    // 1. Duplicate check (within 30 days) — PostgreSQL style with array destructuring
+    // 1. Honeypot check
+    if (honeypot) {
+      console.warn(`Honeypot triggered from IP: ${ip_address}`);
+      return res.status(400).json({ error: 'Spam detected.' });
+    }
+
+    // 2. Log attempt for rate limiting
+    await db.query('INSERT INTO rate_limit_log (ip_address) VALUES ($1)', [ip_address]);
+
+    // 3. Duplicate check (within 30 days)
     const [existing] = await db.query(
       "SELECT id FROM career_applications WHERE email = $1 AND position = $2 AND submitted_at > NOW() - INTERVAL '30 days'",
       [email, position]
@@ -60,34 +72,37 @@ router.post('/', upload.single('resume'), async (req, res) => {
       return res.status(400).json({ error: 'You have already applied for this position within the last 30 days.' });
     }
 
-    // 2. Insert into DB
+    // 4. Insert into DB
     const resume_path = req.file ? req.file.path : '';
     await db.query(
       'INSERT INTO career_applications (full_name, email, phone, position, resume_path, cover_letter, ip_address) VALUES ($1, $2, $3, $4, $5, $6, $7)',
       [full_name, email, phone, position, resume_path, cover_letter || '', ip_address]
     );
 
-    // 3. Respond immediately
-    res.json({ success: 'Application submitted successfully! Our HR team will contact you soon.' });
-
-    // 4. Send emails in background (non-blocking)
+    // 5. Send Emails
     if (process.env.SMTP_HOST) {
+      // Admin Notification
       const adminMail = {
-        from: `"${full_name}" <${process.env.SMTP_USER}>`,
+        from: `"Smaatech Careers" <${process.env.SMTP_USER}>`,
         to: process.env.ADMIN_EMAIL || 'Info@smaatechengineering.com',
-        subject: `New Job Application - ${position}`,
-        text: `New application received.\n\nName: ${full_name}\nEmail: ${email}\nPhone: ${phone}\nPosition: ${position}\n\nCover Letter:\n${cover_letter}`,
+        subject: `New Job Application – ${position}`,
+        text: `A new application has been received.\n\nName: ${full_name}\nEmail: ${email}\nPhone: ${phone}\nPosition: ${position}\n\nCover Letter:\n${cover_letter || 'N/A'}\n\nResume is attached.`,
         attachments: req.file ? [{ filename: req.file.originalname, path: req.file.path }] : []
       };
+
+      // Applicant Confirmation
       const applicantMail = {
-        from: `"Smaatech HR" <${process.env.SMTP_USER}>`,
+        from: `"Smaatech Engineering" <${process.env.SMTP_USER}>`,
         to: email,
-        subject: 'Application Confirmation - Smaatech Engineering',
-        text: `Dear ${full_name},\n\nThank you for applying for the ${position} position at Smaatech Engineering. We will review your profile and get back to you shortly.\n\nRegards,\nHR Team\nSmaatech Engineering Pvt Ltd`
+        subject: 'Application Confirmation – Smaatech Engineering',
+        text: `Dear ${full_name},\n\nThank you for applying for the ${position} position at Smaatech Engineering. We have received your application and our HR team will review it shortly.\n\nRegards,\nHR Team\nSmaatech Engineering Pvt Ltd`
       };
-      transporter.sendMail(adminMail).catch(err => console.error('Admin email error:', err.message));
-      transporter.sendMail(applicantMail).catch(err => console.error('Applicant email error:', err.message));
+
+      transporter.sendMail(adminMail).catch(err => console.error('Admin email failed:', err.message));
+      transporter.sendMail(applicantMail).catch(err => console.error('Applicant email failed:', err.message));
     }
+
+    res.json({ success: 'Application submitted successfully! Check your email for confirmation.' });
 
   } catch (error) {
     console.error('Application Error:', error.message);
