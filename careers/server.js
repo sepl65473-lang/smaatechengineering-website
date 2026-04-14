@@ -116,8 +116,8 @@ const syncDB = async () => {
     `);
 
     // 3. Robust Seeding Check
-    const jobCheck = await db.query('SELECT id FROM jobs LIMIT 1');
-    const jobsExist = jobCheck.rows && jobCheck.rows.length > 0;
+    const [jobRows] = await db.query('SELECT id FROM jobs LIMIT 1');
+    const jobsExist = jobRows && jobRows.length > 0;
     
     console.log(`Database sync check: jobs_exist=${jobsExist}`);
 

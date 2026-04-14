@@ -49,13 +49,13 @@ router.post('/', upload.single('resume'), async (req, res) => {
   const ip_address = req.ip;
 
   try {
-    // 1. Duplicate check (within 30 days) — PostgreSQL style
-    const existing = await db.query(
+    // 1. Duplicate check (within 30 days) — PostgreSQL style with array destructuring
+    const [existing] = await db.query(
       "SELECT id FROM career_applications WHERE email = $1 AND position = $2 AND submitted_at > NOW() - INTERVAL '30 days'",
       [email, position]
     );
 
-    if (existing.rows.length > 0) {
+    if (existing && existing.length > 0) {
       if (req.file) fs.unlinkSync(req.file.path);
       return res.status(400).json({ error: 'You have already applied for this position within the last 30 days.' });
     }
