@@ -112,15 +112,22 @@ const syncDB = async () => {
     `);
 
     // Insert sample job if table is empty
-    const jobCount = await db.query('SELECT COUNT(*) FROM jobs');
-    if (parseInt(jobCount.rows[0].count) === 0) {
+    const jobCountResult = await db.query('SELECT COUNT(*) FROM jobs');
+    const count = parseInt(jobCountResult.rows[0].count);
+    console.log(`Current jobs in database: ${count}`);
+
+    if (count === 0) {
+      console.log('Inserting sample jobs...');
       await db.query(`
-        INSERT INTO jobs (title, department, location, type, description, requirements)
-        VALUES ('System Engineer', 'Engineering', 'Remote/Mumbai', 'Full-time',
-                'Responsible for maintaining and optimizing our cold storage IoT infrastructure.',
-                '3+ years experience, Node.js, AWS, IoT knowledge')
+        INSERT INTO jobs (title, department, location, type, description, requirements) VALUES 
+        ('IoT Systems Engineer', 'Engineering', 'Remote / Mumbai', 'Full-time', 
+         'Responsible for maintaining and optimizing our cold storage IoT infrastructure.', 
+         '3+ years experience, Node.js, AWS, IoT knowledge'),
+        ('Full Stack Developer', 'Technology', 'Remote / Bhubaneswar', 'Full-time', 
+         'Build and maintain web applications for our cold storage management platform.', 
+         '2+ years in React, Node.js, PostgreSQL.');
       `);
-      console.log('Sample job created.');
+      console.log('✅ Sample jobs created successfully.');
     }
 
     console.log('Database synced successfully.');
