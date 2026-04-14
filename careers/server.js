@@ -64,17 +64,25 @@ app.use((err, req, res, next) => {
 
 // Database Sync & Server Start
 const syncDB = async () => {
+  // Start server immediately - don't wait/crash on DB
+  app.listen(PORT, () => {
+    console.log(`Careers server running on port ${PORT}`);
+  });
+
   try {
     const db = require('./config/db');
+
+    // Create tables if not exist (using 'jobs' table name consistently)
     await db.query(`
-      CREATE TABLE IF NOT EXISTS job_postings (
+      CREATE TABLE IF NOT EXISTS jobs (
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
+        department VARCHAR(255),
         location VARCHAR(255) NOT NULL,
-        experience VARCHAR(100),
-        employment_type VARCHAR(100),
+        type VARCHAR(100),
         description TEXT,
-        is_active INTEGER DEFAULT 1,
+        requirements TEXT,
+        is_active BOOLEAN DEFAULT true,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
       CREATE TABLE IF NOT EXISTS career_applications (
@@ -90,25 +98,23 @@ const syncDB = async () => {
         submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
-    // Insert sample job if empty
+
+    // Insert sample job if table is empty
     const jobCount = await db.query('SELECT COUNT(*) FROM jobs');
     if (parseInt(jobCount.rows[0].count) === 0) {
       await db.query(`
         INSERT INTO jobs (title, department, location, type, description, requirements)
-        VALUES ('System Engineer', 'Engineering', 'Remote/Mumbai', 'Full-time', 
-                'Responsible for maintaining and optimizing our cold storage IoT infrastructure.', 
+        VALUES ('System Engineer', 'Engineering', 'Remote/Mumbai', 'Full-time',
+                'Responsible for maintaining and optimizing our cold storage IoT infrastructure.',
                 '3+ years experience, Node.js, AWS, IoT knowledge')
       `);
       console.log('Sample job created.');
     }
 
     console.log('Database synced successfully.');
-    app.listen(PORT, () => {
-      console.log(`Careers server running on port ${PORT}`);
-    });
   } catch (error) {
-    console.error('Failed to sync database:', error);
-    process.exit(1);
+    console.error('DB sync warning (server still running):', error.message);
+    // Don't crash - server is already listening
   }
 };
 
