@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin } from 'lucide-react';
+import { Twitter, Linkedin } from 'lucide-react';
 import seplLogo from '../assets/sepl-logo.png';
 
 export function Footer() {

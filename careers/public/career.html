@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | Smaatech Engineering Pvt Ltd</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --color-brand-500: #059669;
+            --color-brand-400: #10b981;
+            --color-accent-400: #38bdf8;
+            --color-space-900: #0f172a;
+            --color-space-800: #1e293b;
+            --color-space-700: #334155;
+        }
+        body {
+            background-color: var(--color-space-900);
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+        .text-gradient {
+            background: linear-gradient(to right, var(--color-brand-400), var(--color-accent-400));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px border rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+        }
+        .btn-primary {
+            background-color: var(--color-brand-500);
+            color: #0f172a;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: var(--color-brand-400);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+            transform: translateY(-2px);
+        }
+        .job-card:hover {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    
+    <!-- Header Placeholder (Matches Main Site) -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-space-900/80 backdrop-blur-lg border-b border-white/5 py-4">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-2xl tracking-tight">Smaatech<span class="text-[#059669]">.</span></span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-400">
+                <a href="/" class="hover:text-white transition-colors">Home</a>
+                <a href="/#about" class="hover:text-white transition-colors">About</a>
+                <a href="/#services" class="hover:text-white transition-colors">Divisions</a>
+                <a href="/career" class="text-white border-b-2 border-[#059669]">Careers</a>
+            </div>
+            <a href="/" class="btn-primary py-2 text-sm">Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-40 pb-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tighter">
+                Join Our <span class="text-gradient">Team</span>
+            </h1>
+            <p class="text-xl text-slate-400 font-light">
+                Be part of a growing engineering excellence story. We are looking for innovators, dreamers, and doers.
+            </p>
+        </div>
+    </header>
+
+    <!-- Job Listings Section -->
+    <section class="max-w-6xl mx-auto px-6 pb-24">
+        <h2 class="text-3xl font-bold mb-12 text-white/90">Open Opportunities</h2>
+        <div id="job-listings" class="grid gap-6">
+            <!-- Dynamic Jobs will be injected here -->
+            <div class="text-center py-20 text-slate-500 animate-pulse">
+                Loading career opportunities...
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form Section -->
+    <section id="apply-section" class="max-w-4xl mx-auto px-6 pb-32 hidden">
+        <div class="glass-card p-8 md:p-12">
+            <h2 class="text-3xl font-bold mb-8">Submit Your <span class="text-[#059669]">Application</span></h2>
+            <form id="career-form" class="space-y-6" enctype="multipart/form-data">
+                <input type="hidden" name="position" id="selected-position">
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-slate-500">Full Name</label>
+                        <input type="text" name="full_name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-[#059669]/50 transition-all">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-slate-500">Email Address</label>
+                        <input type="email" name="email" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-[#059669]/50 transition-all">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-slate-500">Phone (10-digit)</label>
+                        <input type="tel" name="phone" pattern="[0-9]{10}" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-[#059669]/50 transition-all">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-bold uppercase tracking-widest text-slate-500">Resume (PDF/DOCX, Max 2MB)</label>
+                        <input type="file" name="resume" accept=".pdf,.doc,.docx" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-[#059669]/20 file:text-[#059669] hover:file:bg-[#059669]/30 transition-all">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-xs font-bold uppercase tracking-widest text-slate-500">Brief Cover Letter (Optional)</label>
+                    <textarea name="cover_letter" rows="4" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-[#059669]/50 transition-all resize-none"></textarea>
+                </div>
+
+                <button type="submit" id="submit-btn" class="btn-primary w-full py-5 text-xl">
+                    Submit Application
+                </button>
+                <p id="form-msg" class="text-center text-sm font-medium mt-4"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Placeholder -->
+    <footer class="bg-slate-950 border-t border-white/5 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-slate-500 text-sm">
+                &copy; 2026 Smaatech Engineering Group. All rights reserved.
+            </div>
+            <div class="flex space-x-6 text-slate-400 text-sm">
+                <a href="#" class="hover:text-white">Privacy Protocol</a>
+                <a href="#" class="hover:text-white">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Fetch and show jobs
+        async function loadJobs() {
+            try {
+                const res = await fetch('/api/jobs');
+                const jobs = await res.json();
+                const container = document.getElementById('job-listings');
+                
+                if (!jobs.length) {
+                    container.innerHTML = `<div class="glass-card p-12 text-center text-slate-400 italic text-xl">No openings at the moment. Check back soon!</div>`;
+                    return;
+                }
+
+                container.innerHTML = jobs.map(job => `
+                    <div class="glass-card p-8 job-card transition-all duration-300 group">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-2">${job.title}</h3>
+                                <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-400 uppercase tracking-widest font-bold">
+                                    <span class="flex items-center"><svg class="w-4 h-4 mr-1 text-[#059669]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>${job.location}</span>
+                                    <span class="flex items-center"><svg class="w-4 h-4 mr-1 text-[#059669]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>${job.experience}</span>
+                                    <span class="flex items-center"><svg class="w-4 h-4 mr-1 text-[#059669]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>${job.employment_type}</span>
+                                </div>
+                            </div>
+                            <button onclick="openApplyForm('${job.title}')" class="btn-primary">Apply Now</button>
+                        </div>
+                        <p class="mt-6 text-slate-400 font-light leading-relaxed">${job.description}</p>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function openApplyForm(title) {
+            document.getElementById('selected-position').value = title;
+            document.getElementById('apply-section').classList.remove('hidden');
+            window.scrollTo({
+                top: document.getElementById('apply-section').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+
+        document.getElementById('career-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const msg = document.getElementById('form-msg');
+            const btn = document.getElementById('submit-btn');
+
+            btn.disabled = true;
+            btn.innerText = 'Submitting...';
+            msg.innerText = '';
+
+            try {
+                const res = await fetch('/api/apply', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    msg.className = 'text-center text-sm font-medium mt-4 text-emerald-400';
+                    msg.innerText = data.success;
+                    e.target.reset();
+                    btn.innerText = 'Submitted!';
+                } else {
+                    msg.className = 'text-center text-sm font-medium mt-4 text-red-400';
+                    msg.innerText = data.error || 'Submission failed.';
+                    btn.disabled = false;
+                    btn.innerText = 'Submit Application';
+                }
+            } catch (err) {
+                msg.className = 'text-center text-sm font-medium mt-4 text-red-400';
+                msg.innerText = 'Network error. Please try again.';
+                btn.disabled = false;
+                btn.innerText = 'Submit Application';
+            }
+        };
+
+        loadJobs();
+    </script>
+</body>
+</html>

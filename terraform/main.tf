@@ -117,10 +117,118 @@ resource "aws_acm_certificate_validation" "cert" {
   certificate_arn         = aws_acm_certificate.cert.arn
 }
 
+# SES Identity for Email
+resource "aws_ses_email_identity" "contact" {
+  email = "sepl65473@gmail.com"
+}
+
+# IAM Role for Lambda
+resource "aws_iam_role" "lambda_role" {
+  name = "contact_form_lambda_role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = { Service = "lambda.amazonaws.com" }
+    }]
+  })
+}
+
+# IAM Policy to allow SES sending and CloudWatch logs
+resource "aws_iam_role_policy" "lambda_policy" {
+  name = "contact_form_lambda_policy"
+  role = aws_iam_role.lambda_role.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action   = ["ses:SendEmail", "ses:SendRawEmail"]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+      {
+        Action   = ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"]
+        Effect   = "Allow"
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+# Archive the Lambda code
+data "archive_file" "lambda_zip" {
+  type        = "zip"
+  source_file = "${path.module}/lambda/contact.js"
+  output_path = "${path.module}/lambda/contact.zip"
+}
+
+# Lambda Function
+resource "aws_lambda_function" "contact" {
+  filename      = data.archive_file.lambda_zip.output_path
+  function_name = "smaatech-contact-handler"
+  role          = aws_iam_role.lambda_role.arn
+  handler       = "contact.handler"
+  runtime       = "nodejs18.x"
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+}
+
+# API Gateway (REST API)
+resource "aws_api_gateway_rest_api" "contact" {
+  name = "SmaatechContactAPI"
+}
+
+resource "aws_api_gateway_resource" "contact" {
+  rest_api_id = aws_api_gateway_rest_api.contact.id
+  parent_id   = aws_api_gateway_rest_api.contact.root_resource_id
+  path_part   = "contact"
+}
+
+resource "aws_api_gateway_method" "post" {
+  rest_api_id   = aws_api_gateway_rest_api.contact.id
+  resource_id   = aws_api_gateway_resource.contact.id
+  http_method   = "POST"
+  authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "lambda" {
+  rest_api_id = aws_api_gateway_rest_api.contact.id
+  resource_id = aws_api_gateway_resource.contact.id
+  http_method = aws_api_gateway_method.post.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.contact.invoke_arn
+}
+
+# Lambda Permission for API Gateway
+resource "aws_lambda_permission" "api_gw" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.contact.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.contact.execution_arn}/*/*"
+}
+
+# CORS for API Gateway
+module "cors" {
+  source  = "squidfunk/api-gateway-enable-cors/aws"
+  version = "0.3.3"
+  api_id            = aws_api_gateway_rest_api.contact.id
+  api_resource_id = aws_api_gateway_resource.contact.id
+}
+
+# API Deployment
+resource "aws_api_gateway_deployment" "prod" {
+  depends_on = [aws_api_gateway_integration.lambda]
+  rest_api_id = aws_api_gateway_rest_api.contact.id
+  stage_name  = "prod"
+}
+
+# Outputs
 output "cloudfront_domain_name" {
   value = aws_cloudfront_distribution.site.domain_name
 }
 
-output "s3_website_endpoint" {
-  value = aws_s3_bucket_website_configuration.site.website_endpoint
+output "api_endpoint" {
+  value = "${aws_api_gateway_deployment.prod.invoke_url}/contact"
 }

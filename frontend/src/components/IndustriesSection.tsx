@@ -61,9 +61,9 @@ export function IndustriesSection() {
                 <img 
                   src={ind.image} 
                   alt={ind.name} 
-                  className="w-full h-full object-cover opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-700"
+                  className="w-full h-full object-cover opacity-50 group-hover:opacity-80 group-hover:scale-110 transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-space-900 via-space-900/60 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-space-900 via-space-900/40 to-transparent"></div>
               </div>
               
               <div className="relative z-10 p-8 transform group-hover:-translate-y-4 transition-transform duration-500">

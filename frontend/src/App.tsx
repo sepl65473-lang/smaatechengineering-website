@@ -12,6 +12,7 @@ import { CaseStudySection } from './components/CaseStudySection';
 
 import { ProjectsDirectory } from './views/ProjectsDirectory';
 import { ProjectColdStorage } from './views/ProjectColdStorage';
+import { CareersView } from './views/Careers.tsx';
 
 function App() {
   const [view, setView] = useState<string>('home');
@@ -50,6 +51,12 @@ function App() {
         {view === 'project-cold-storage' && (
           <div className="animate-in fade-in duration-500 slide-in-from-bottom-4">
             <ProjectColdStorage setView={setView} />
+          </div>
+        )}
+
+        {view === 'career' && (
+          <div className="animate-in fade-in duration-500">
+            <CareersView />
           </div>
         )}
       </main>

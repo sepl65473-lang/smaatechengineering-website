@@ -1,0 +1,12 @@
+node_modules/
+.env
+uploads/
+*.log
+npm-debug.log*
+dummy_resume.pdf
+test_submission.js
+patch_cf.js
+cf_config*.json
+seed_prod.js
+patch_alb.js
+rules*.json

@@ -4,24 +4,83 @@ on:
   push:
     branches: [ main ]
 
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: smaatech-careers
+  ECS_CLUSTER: cold-storage-prod-cluster
+  ECS_SERVICE: careers
+
 jobs:
-  deploy:
+  # ─── Job 1: Deploy Frontend to S3 ────────────────────────────────────────
+  deploy-frontend:
+    name: Deploy Frontend to S3
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+          aws-region: us-east-1
+
       - name: Install dependencies
         run: npm install
         working-directory: ./frontend
-      - name: Build
+
+      - name: Build frontend
         run: npm run build
         working-directory: ./frontend
+
       - name: Sync files to S3
         run: aws s3 sync ./frontend/dist s3://${{ secrets.S3_BUCKET }} --delete
+
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --paths "/*"
+
+  # ─── Job 2: Build & Deploy Careers Backend to ECS ────────────────────────
+  deploy-careers-backend:
+    name: Deploy Careers Backend to ECS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push Docker image to ECR
+        working-directory: ./careers
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+        id: build-image
+
+      - name: Force new ECS deployment
+        run: |
+          aws ecs update-service \
+            --cluster $ECS_CLUSTER \
+            --service $ECS_SERVICE \
+            --force-new-deployment \
+            --region $AWS_REGION
+
+      - name: Wait for ECS deployment to stabilize
+        run: |
+          aws ecs wait services-stable \
+            --cluster $ECS_CLUSTER \
+            --services $ECS_SERVICE \
+            --region $AWS_REGION

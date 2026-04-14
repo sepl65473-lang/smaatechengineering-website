@@ -54,7 +54,7 @@ export function CaseStudySection() {
               transition={{ duration: 0.8 }}
               className="rounded-3xl overflow-hidden glass-card border border-white/10 h-[350px] md:h-[450px] shadow-2xl"
             >
-              <img src="/images/water.png" alt="Water Infrastructure" className="w-full h-full object-cover brightness-75" />
+              <img src="/images/water.png" alt="Water Infrastructure" className="w-full h-full object-cover" />
             </motion.div>
           </div>
 
@@ -67,7 +67,7 @@ export function CaseStudySection() {
               transition={{ duration: 0.8 }}
               className="rounded-3xl overflow-hidden glass-card border border-white/10 h-[350px] md:h-[450px] md:order-1 order-2 shadow-2xl"
             >
-              <img src="/images/automation.png" alt="Automation and SCADA" className="w-full h-full object-cover brightness-75" />
+              <img src="/images/automation.png" alt="Automation and SCADA" className="w-full h-full object-cover" />
             </motion.div>
             <motion.div 
               initial={{ opacity: 0, x: 50 }}
@@ -124,7 +124,7 @@ export function CaseStudySection() {
               transition={{ duration: 0.8 }}
               className="rounded-3xl overflow-hidden glass-card border border-white/10 h-[350px] md:h-[450px] shadow-2xl"
             >
-              <img src="/images/agritech.png" alt="Agritech Hub" className="w-full h-full object-cover brightness-75" />
+              <img src="/images/agritech.png" alt="Agritech Hub" className="w-full h-full object-cover" />
             </motion.div>
           </div>
 
@@ -160,7 +160,7 @@ export function CaseStudySection() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="relative h-[250px] rounded-[1.5rem] overflow-hidden glass-card group border border-white/10 shadow-2xl"
             >
-              <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-75" />
+              <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
               <div className="absolute inset-0 bg-gradient-to-t from-space-900/80 via-transparent to-transparent"></div>
               <div className="absolute bottom-6 left-6 right-6">
                 <span className="text-[1.05rem] font-bold text-white tracking-wide">

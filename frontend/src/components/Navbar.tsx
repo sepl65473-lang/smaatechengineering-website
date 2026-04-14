@@ -26,6 +26,7 @@ export function Navbar({ currentView, setView, openLoginModal }: NavbarProps) {
     { name: 'Home', href: '#home', isAnchor: true },
     { name: 'About', href: '#about', isAnchor: true },
     { name: 'Divisions', href: '#services', isAnchor: true },
+    { name: 'Careers', href: '/career', isAnchor: false },
   ] : [
     { name: '← Back to Home', href: '#', isAnchor: false, action: () => { setView('home'); window.scrollTo(0, 0); } },
   ];

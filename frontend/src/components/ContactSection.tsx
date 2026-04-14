@@ -8,7 +8,7 @@ export function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    company: '',
+    organization: '',
     message: ''
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -29,7 +29,7 @@ export function ContactSection() {
       if (!response.ok) throw new Error('Transmission failed');
       
       setStatus('success');
-      setFormData({ name: '', email: '', company: '', message: '' });
+      setFormData({ name: '', email: '', organization: '', message: '' });
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
       console.error('Contact form error:', error);
@@ -86,7 +86,6 @@ export function ContactSection() {
                   <MapPin className="w-6 h-6 text-brand-400 mr-4 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-bold text-white mb-1">Bhubaneswar, Odisha</h4>
-                    <p className="text-slate-400 font-light leading-relaxed">Infocity, Patia<br/>India 751024</p>
                   </div>
                 </div>
                 
@@ -95,7 +94,7 @@ export function ContactSection() {
                 <div className="flex items-center group/link cursor-pointer">
                   <Mail className="w-6 h-6 text-brand-400 mr-4 flex-shrink-0" />
                   <div className="flex-1">
-                    <p className="font-bold text-white group-hover/link:text-brand-400 transition-colors">contact@smaatech.com</p>
+                    <p className="font-bold text-white group-hover/link:text-brand-400 transition-colors">Info@smaatechengineering.com</p>
                   </div>
                   <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover/link:text-brand-400 transition-colors opacity-0 group-hover/link:opacity-100" />
                 </div>
@@ -159,8 +158,8 @@ export function ContactSection() {
                     type="text"
                     placeholder="Engineering Division"
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-brand-500/50 focus:bg-white/10 transition-all placeholder:text-white/20"
-                    value={formData.company}
-                    onChange={(e) => setFormData({...formData, company: e.target.value})}
+                    value={formData.organization}
+                    onChange={(e) => setFormData({...formData, organization: e.target.value})}
                   />
                 </div>
 
