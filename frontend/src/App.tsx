@@ -12,6 +12,7 @@ import { CaseStudySection } from './components/CaseStudySection';
 
 import { ProjectsDirectory } from './views/ProjectsDirectory';
 import { ProjectColdStorage } from './views/ProjectColdStorage';
+import { ProjectWorks } from './views/ProjectWorks';
 import { CareersView } from './views/Careers.tsx';
 
 function App() {
@@ -54,9 +55,15 @@ function App() {
           </div>
         )}
 
-        {view === 'career' && (
+        { view === 'career' && (
           <div className="animate-in fade-in duration-500">
             <CareersView />
+          </div>
+        )}
+
+        {view === 'project-works' && (
+          <div className="animate-in fade-in duration-500">
+            <ProjectWorks setView={setView} />
           </div>
         )}
       </main>

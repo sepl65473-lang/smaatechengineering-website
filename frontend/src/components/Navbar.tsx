@@ -27,6 +27,7 @@ export function Navbar({ currentView, setView, openLoginModal }: NavbarProps) {
     { name: 'About', href: '#about', isAnchor: true },
     { name: 'Divisions', href: '#services', isAnchor: true },
     { name: 'Careers', href: '/career', isAnchor: false },
+    { name: 'Project Works', href: '#', isAnchor: false, action: () => { setView('project-works'); window.scrollTo(0, 0); } },
   ] : [
     { name: '← Back to Home', href: '#', isAnchor: false, action: () => { setView('home'); window.scrollTo(0, 0); } },
   ];
@@ -113,8 +114,15 @@ export function Navbar({ currentView, setView, openLoginModal }: NavbarProps) {
             
             <div className="pt-8 border-t border-white/10 mt-8 space-y-4">
               <button 
-                onClick={() => { setView('projects'); setIsOpen(false); window.scrollTo(0,0); }}
+                onClick={() => { setView('project-works'); setIsOpen(false); window.scrollTo(0,0); }}
                 className="btn-secondary w-full justify-center text-lg"
+              >
+                Project Works
+              </button>
+              
+              <button 
+                onClick={() => { setView('projects'); setIsOpen(false); window.scrollTo(0,0); }}
+                className="btn-secondary w-full justify-center text-lg border-white/10 opacity-60"
               >
                 Public Projects
               </button>
