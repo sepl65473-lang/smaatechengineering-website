@@ -14,6 +14,9 @@ import { PartnersStrip } from './components/PartnersStrip';
 import { TeamSection } from './components/TeamSection';
 import { BlogSection } from './components/BlogSection';
 import { QuoteCTABanner } from './components/QuoteCTABanner';
+import { ProductsSection } from './components/ProductsSection';
+import { ScrollToTop } from './components/ScrollToTop';
+import { FloatingContact } from './components/FloatingContact';
 
 import { ProjectsDirectory } from './views/ProjectsDirectory';
 import { ProjectColdStorage } from './views/ProjectColdStorage';
@@ -45,11 +48,13 @@ function App() {
             <PartnersStrip />
             <AboutSection />
             <ServicesSection />
+            <ProductsSection />
             <TeamSection />
             <CaseStudySection />
             <BlogSection />
             <QuoteCTABanner />
             <ContactSection />
+            <FloatingContact />
           </div>
         )}
         
@@ -79,6 +84,7 @@ function App() {
       </main>
       
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }
