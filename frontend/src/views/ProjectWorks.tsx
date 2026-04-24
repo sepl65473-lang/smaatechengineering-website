@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, X, Mail, Phone, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { companyProfile } from '../data/company';
 
 // Import images
 import project1 from '../assets/project-works/project-1.jpeg';
@@ -31,6 +32,8 @@ interface ProjectWorksProps {
 
 export function ProjectWorks({ setView }: ProjectWorksProps) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const brochureActionHref = companyProfile.brochureUrl ?? `mailto:${companyProfile.email}?subject=Brochure%20Request`;
+  const brochureActionLabel = companyProfile.brochureUrl ? 'Download Brochure' : 'Request Brochure';
 
   const projects: Project[] = [
     { 
@@ -131,11 +134,11 @@ export function ProjectWorks({ setView }: ProjectWorksProps) {
             <div className="flex gap-6">
                 <div className="flex items-center gap-2">
                     <Phone className="w-3 h-3 text-[#00A88E]" />
-                    <span>+91 94371 44444</span>
+                    <span>{companyProfile.phoneCompact}</span>
                 </div>
                 <div className="flex items-center gap-2 border-l border-white/10 pl-6">
                     <Mail className="w-3 h-3 text-[#00A88E]" />
-                    <span>info@smaatechengineering.com</span>
+                    <span>{companyProfile.email}</span>
                 </div>
             </div>
             <div className="flex gap-4 items-center">
@@ -165,9 +168,12 @@ export function ProjectWorks({ setView }: ProjectWorksProps) {
                     <span className="cursor-pointer hover:text-[#00A88E]">Contact</span>
                 </div>
             </div>
-            <button className="bg-black text-white px-6 py-2.5 rounded-md text-[11px] font-bold uppercase tracking-widest hover:bg-[#00A88E] transition-all">
-                Download Catalogue
-            </button>
+            <a
+                href={brochureActionHref}
+                className="bg-black text-white px-6 py-2.5 rounded-md text-[11px] font-bold uppercase tracking-widest hover:bg-[#00A88E] transition-all"
+            >
+                {brochureActionLabel}
+            </a>
         </div>
       </header>
 
@@ -230,7 +236,7 @@ export function ProjectWorks({ setView }: ProjectWorksProps) {
         <div className="container-custom text-center">
             <h3 className="text-2xl font-black mb-8 tracking-tighter">SMAATECH <span className="text-[#00A88E]">ENGINEERING</span></h3>
             <p className="text-gray-500 text-sm mb-12 max-w-lg mx-auto leading-relaxed">
-                Registered office: Plot No. 1022/2750, Bhubaneswar Sahara Unit No. 34, Bhubaneswar, Odisha.
+                Registered office: {companyProfile.registeredOffice}
             </p>
             <div className="flex justify-center gap-8 text-[11px] font-bold uppercase tracking-widest">
                 <span className="hover:text-[#00A88E] cursor-pointer">Projects</span>

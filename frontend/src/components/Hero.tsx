@@ -52,8 +52,8 @@ export function Hero() {
         </motion.p>
 
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
-          <a href="#flagship" className="btn-primary text-lg group">
-            Explore Platforms
+          <a href="#services" className="btn-primary text-lg group">
+            Explore Capabilities
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </a>
           <a href={config.platformDashboardUrl} className="btn-secondary text-lg">

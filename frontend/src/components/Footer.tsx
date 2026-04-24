@@ -1,5 +1,7 @@
-import { Twitter, Linkedin } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
 import seplLogo from '../assets/sepl-logo.png';
+import { config } from '../config';
+import { companyProfile } from '../data/company';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -22,16 +24,19 @@ export function Footer() {
             <p className="text-slate-400 leading-relaxed font-light pr-4 mb-8">
               Architecting the infrastructure of tomorrow. Smaatech Group delivers highly engineered solutions across heavy civil, automation, and intelligent agritech ecosystems.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-brand-400 hover:border-brand-500/50 hover:bg-white/5 transition-colors">
-                <Twitter className="w-5 h-5" />
+            <div className="space-y-3 text-sm font-light">
+              <a href={`mailto:${companyProfile.email}`} className="flex items-center gap-3 text-slate-400 hover:text-brand-400 transition-colors">
+                <Mail className="w-4 h-4" />
+                <span>{companyProfile.email}</span>
               </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-brand-400 hover:border-brand-500/50 hover:bg-white/5 transition-colors">
-                <Linkedin className="w-5 h-5" />
+              <a href={companyProfile.phoneHref} className="flex items-center gap-3 text-slate-400 hover:text-brand-400 transition-colors">
+                <Phone className="w-4 h-4" />
+                <span>{companyProfile.phoneCompact}</span>
               </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-400 hover:text-brand-400 hover:border-brand-500/50 hover:bg-white/5 transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
+              <div className="flex items-start gap-3 text-slate-400">
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <span>{companyProfile.locationShort}</span>
+              </div>
             </div>
           </div>
           
@@ -50,34 +55,38 @@ export function Footer() {
           </div>
           
           <div className="lg:col-span-2">
-            <h4 className="font-bold text-white mb-6 uppercase tracking-widest text-xs">Platform</h4>
+            <h4 className="font-bold text-white mb-6 uppercase tracking-widest text-xs">Quick Access</h4>
             <ul className="space-y-4">
-              {['Features overview', 'Android Application', 'Hardware Specs', 'Security Architecture', 'API Documentation'].map((item) => (
-                <li key={item}>
-                  <a href="#flagship" className="text-slate-400 hover:text-brand-400 font-light transition-colors text-sm">{item}</a>
+              {[
+                { label: 'About Us', href: '#about' },
+                { label: 'Capabilities', href: '#services' },
+                { label: 'Team', href: '#team' },
+                { label: 'Insights', href: '#blog' },
+                { label: 'Contact', href: '#contact' },
+              ].map((item) => (
+                <li key={item.label}>
+                  <a href={item.href} className="text-slate-400 hover:text-brand-400 font-light transition-colors text-sm">{item.label}</a>
                 </li>
               ))}
             </ul>
           </div>
           
           <div className="lg:col-span-3">
-            <h4 className="font-bold text-white mb-6 uppercase tracking-widest text-xs">Stay Synced</h4>
+            <h4 className="font-bold text-white mb-6 uppercase tracking-widest text-xs">Resources</h4>
             <p className="text-slate-400 text-sm font-light leading-relaxed mb-4">
-              Subscribe to our engineering debriefs for updates on infrastructure technology and platform releases.
+              Connect with our team for project discussions, technical support, and access to the client platform.
             </p>
-            <form className="relative group">
-              <input 
-                type="email" 
-                placeholder="Secure email link..." 
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-brand-500/50 transition-colors placeholder-white/20 font-light"
-              />
+            <div className="space-y-3">
+              <a href={config.platformDashboardUrl} className="block w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm text-white hover:border-brand-500/50 transition-colors font-medium">
+                Client Login
+              </a>
               <button 
                 type="button" 
-                className="absolute right-1 top-1 bg-brand-500 text-slate-900 rounded-md px-3 py-1.5 text-sm font-bold hover:bg-brand-400 transition-colors"
+                className="w-full text-left bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-sm text-white/70 transition-colors font-medium cursor-default"
               >
-                Sync
+                Brochure available on request
               </button>
-            </form>
+            </div>
           </div>
           
         </div>
@@ -87,9 +96,9 @@ export function Footer() {
             &copy; {currentYear} Smaatech Engineering Group. All rights reserved.
           </p>
           <div className="flex space-x-6 text-sm font-light">
-            <a href="#" className="text-slate-500 hover:text-white transition-colors">Privacy Protocol</a>
-            <a href="#" className="text-slate-500 hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="text-slate-500 hover:text-white transition-colors">Cookies</a>
+            <a href="#home" className="text-slate-500 hover:text-white transition-colors">Home</a>
+            <a href="#contact" className="text-slate-500 hover:text-white transition-colors">Contact</a>
+            <a href={config.platformDashboardUrl} className="text-slate-500 hover:text-white transition-colors">Client Login</a>
           </div>
         </div>
       </div>
