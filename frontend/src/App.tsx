@@ -5,10 +5,15 @@ import { LoginModal } from './components/LoginModal';
 
 // Views
 import { Hero } from './components/Hero';
+import { ProblemSolution } from './components/ProblemSolution';
 import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
-import { ContactSection } from './components/ContactSection';
+import { IndustriesSection } from './components/IndustriesSection';
+import { PlatformSection } from './components/PlatformSection';
+import { MobileAppSection } from './components/MobileAppSection';
 import { CaseStudySection } from './components/CaseStudySection';
+import { SocialProofSection } from './components/SocialProofSection';
+import { ContactSection } from './components/ContactSection';
 
 import { ProjectsDirectory } from './views/ProjectsDirectory';
 import { ProjectColdStorage } from './views/ProjectColdStorage';
@@ -36,9 +41,14 @@ function App() {
         {view === 'home' && (
           <div className="animate-in fade-in duration-500">
             <Hero />
+            <ProblemSolution />
             <AboutSection />
             <ServicesSection />
+            <IndustriesSection />
+            <PlatformSection />
+            <MobileAppSection />
             <CaseStudySection />
+            <SocialProofSection />
             <ContactSection />
           </div>
         )}
