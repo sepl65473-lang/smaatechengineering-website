@@ -21,17 +21,17 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-space-900 text-white font-sans selection:bg-brand-500 selection:text-white">
-      <Navbar
-        currentView={view}
-        setView={setView}
-        openLoginModal={() => setIsLoginModalOpen(true)}
+      <Navbar 
+        currentView={view} 
+        setView={setView} 
+        openLoginModal={() => setIsLoginModalOpen(true)} 
       />
-
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
+      
+      <LoginModal 
+        isOpen={isLoginModalOpen} 
+        onClose={() => setIsLoginModalOpen(false)} 
       />
-
+      
       <main className="flex-grow">
         {view === 'home' && (
           <div className="animate-in fade-in duration-500">
@@ -42,13 +42,13 @@ function App() {
             <ContactSection />
           </div>
         )}
-
+        
         {view === 'projects' && (
           <div className="animate-in fade-in duration-500">
             <ProjectsDirectory setView={setView} />
           </div>
         )}
-
+        
         {view === 'project-cold-storage' && (
           <div className="animate-in fade-in duration-500 slide-in-from-bottom-4">
             <ProjectColdStorage setView={setView} />
@@ -67,7 +67,7 @@ function App() {
           </div>
         )}
       </main>
-
+      
       <Footer />
     </div>
   );
