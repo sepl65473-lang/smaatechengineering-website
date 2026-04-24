@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, PhoneCall } from 'lucide-react';
+import { companyProfile } from '../data/company';
 
 export function QuoteCTABanner() {
   return (
@@ -50,10 +51,10 @@ export function QuoteCTABanner() {
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
-                href="tel:+916746621100"
+                href={companyProfile.phoneHref}
                 className="btn-secondary text-lg px-8"
               >
-                Call Us: +91 674 662-1100
+                Call Us: {companyProfile.phoneCompact}
               </a>
             </div>
           </div>

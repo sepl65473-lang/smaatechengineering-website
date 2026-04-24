@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { companyProfile } from '../data/company';
 
 interface Job {
   id: number;
@@ -97,7 +98,7 @@ export const CareersView = () => {
 
       <div className="mt-20 border-t border-gray-700 pt-20 text-center">
         <h2 className="text-2xl font-bold mb-4">Don't see a fit?</h2>
-        <p className="text-gray-400 mb-8">Send your resume to <a href="mailto:Info@smaatechengineering.com" className="text-brand-400 hover:underline">Info@smaatechengineering.com</a> and we'll keep you in mind for future openings.</p>
+        <p className="text-gray-400 mb-8">Send your resume to <a href={`mailto:${companyProfile.email}`} className="text-brand-400 hover:underline">{companyProfile.email}</a> and we'll keep you in mind for future openings.</p>
       </div>
     </div>
   );

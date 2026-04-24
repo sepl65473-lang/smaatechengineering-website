@@ -3,6 +3,7 @@ import type { FormEvent } from 'react';
 import { motion } from 'framer-motion';
 import { Send, MapPin, Mail, Phone, ArrowUpRight, X } from 'lucide-react';
 import { config } from '../config';
+import { companyProfile } from '../data/company';
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -85,7 +86,7 @@ export function ContactSection() {
                 <div className="flex items-start">
                   <MapPin className="w-6 h-6 text-brand-400 mr-4 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-bold text-white mb-1">Bhubaneswar, Odisha</h4>
+                    <h4 className="font-bold text-white mb-1">{companyProfile.locationShort}</h4>
                   </div>
                 </div>
                 
@@ -94,7 +95,7 @@ export function ContactSection() {
                 <div className="flex items-center group/link cursor-pointer">
                   <Mail className="w-6 h-6 text-brand-400 mr-4 flex-shrink-0" />
                   <div className="flex-1">
-                    <p className="font-bold text-white group-hover/link:text-brand-400 transition-colors">Info@smaatechengineering.com</p>
+                    <p className="font-bold text-white group-hover/link:text-brand-400 transition-colors">{companyProfile.email}</p>
                   </div>
                   <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover/link:text-brand-400 transition-colors opacity-0 group-hover/link:opacity-100" />
                 </div>
@@ -102,7 +103,7 @@ export function ContactSection() {
                 <div className="flex items-center group/link cursor-pointer">
                   <Phone className="w-6 h-6 text-brand-400 mr-4 flex-shrink-0" />
                   <div className="flex-1">
-                    <p className="font-bold text-white group-hover/link:text-brand-400 transition-colors">+91 (674) 662-1100</p>
+                    <p className="font-bold text-white group-hover/link:text-brand-400 transition-colors">{companyProfile.phoneDisplay}</p>
                   </div>
                   <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover/link:text-brand-400 transition-colors opacity-0 group-hover/link:opacity-100" />
                 </div>
