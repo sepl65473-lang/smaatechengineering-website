@@ -9,6 +9,11 @@ import { AboutSection } from './components/AboutSection';
 import { ServicesSection } from './components/ServicesSection';
 import { ContactSection } from './components/ContactSection';
 import { CaseStudySection } from './components/CaseStudySection';
+import { StatsSection } from './components/StatsSection';
+import { PartnersStrip } from './components/PartnersStrip';
+import { TeamSection } from './components/TeamSection';
+import { BlogSection } from './components/BlogSection';
+import { QuoteCTABanner } from './components/QuoteCTABanner';
 
 import { ProjectsDirectory } from './views/ProjectsDirectory';
 import { ProjectColdStorage } from './views/ProjectColdStorage';
@@ -36,9 +41,14 @@ function App() {
         {view === 'home' && (
           <div className="animate-in fade-in duration-500">
             <Hero />
+            <StatsSection />
+            <PartnersStrip />
             <AboutSection />
             <ServicesSection />
+            <TeamSection />
             <CaseStudySection />
+            <BlogSection />
+            <QuoteCTABanner />
             <ContactSection />
           </div>
         )}
