@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Activity, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { config } from '../config';
 
 export function Hero() {
@@ -61,29 +61,6 @@ export function Hero() {
           </a>
         </motion.div>
         
-        <motion.div variants={itemVariants} className="mt-16 pt-8 border-t border-white/10 w-full grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
-           {[
-             { num: "50+", label: "Successful Projects", icon: Activity },
-             { num: "₹15Cr+", label: "Engineering Value", icon: ShieldCheck },
-             { num: "50+", label: "Team Experts", icon: Activity },
-             { num: "20+", label: "Villages Served", icon: Zap }
-           ].map((stat, i) => (
-           <div
-             key={i}
-             className="text-center group px-4 py-4 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 transition-all hover:bg-white/10"
-           >
-             <div className="flex justify-center mb-2">
-               <stat.icon className="w-6 h-6 text-brand-400 group-hover:text-brand-300 transition-colors" />
-             </div>
-             <h4 className="text-2xl md:text-3xl font-extrabold text-white mb-1 group-hover:scale-110 transition-transform">
-               {stat.num}
-             </h4>
-             <p className="text-xs md:text-sm font-semibold text-white/60 uppercase tracking-widest">
-               {stat.label}
-             </p>
-           </div>
-           ))}
-        </motion.div>
 
       </motion.div>
       
