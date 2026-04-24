@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { ArrowLeft, X, Mail, Phone, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { LayoutGrid, Globe, Award, Target, ArrowLeft, X, Maximize2 } from 'lucide-react';
 
 // Import images
 import project1 from '../assets/project-works/project-1.jpeg';
+import project2 from '../assets/project-works/project-2.jpeg';
 import project3 from '../assets/project-works/project-3.jpeg';
 import project4 from '../assets/project-works/project-4.jpeg';
 import project5 from '../assets/project-works/project-5.jpeg';
@@ -16,6 +17,7 @@ import project10 from '../assets/project-works/project-10.jpeg';
 import project11 from '../assets/project-works/project-11.jpeg';
 import project12 from '../assets/project-works/project-12.jpeg';
 import project13 from '../assets/project-works/project-13.jpeg';
+import project14 from '../assets/project-works/project-14.jpeg';
 
 interface Project {
   id: number;
@@ -36,215 +38,265 @@ export function ProjectWorks({ setView }: ProjectWorksProps) {
     { 
       id: 1, 
       img: project1, 
-      title: 'Corporate Excellence & Recognition', 
-      category: 'Awards',
-      description: 'Celebrating our team\'s commitment to delivering high-performance engineering solutions across Odisha.'
+      title: 'Industrial Power Systems', 
+      category: 'Infrastructure',
+      description: 'Custom-engineered electrical infrastructure designed for heavy manufacturing plants, ensuring stable power distribution and load management.'
+    },
+    { 
+      id: 2, 
+      img: project2, 
+      title: 'Solar Cold Storage', 
+      category: 'Agriculture',
+      description: 'Innovative solar-powered refrigeration units providing off-grid agricultural logistics solutions for remote farming communities.'
     },
     { 
       id: 3, 
       img: project3, 
-      title: 'Large-Scale Water Treatment (STP)', 
-      category: 'Infrastructure',
-      description: 'Implementation of advanced circular sedimentation tanks and automated water processing systems for urban infrastructure.'
+      title: 'Smart Monitoring Networks', 
+      category: 'IoT & Automation',
+      description: 'Advanced telemetry and sensor networks for real-time data acquisition and performance monitoring of industrial assets.'
     },
     { 
       id: 4, 
       img: project4, 
-      title: 'Industrial Reservoir Infrastructure', 
-      category: 'Civil Engineering',
-      description: 'Construction of high-capacity dome-structured reservoirs designed for municipal and industrial water storage.'
+      title: 'Sustainable Irrigation', 
+      category: 'Water Management',
+      description: 'Eco-friendly water management systems utilizing integrated renewables to optimize resource usage in large-scale agriculture.'
     },
     { 
       id: 5, 
       img: project5, 
-      title: 'Precision Pipeline Integration', 
-      category: 'Utility Piping',
-      description: 'Execution of complex underground piping networks using heavy-duty valves and precision-engineered industrial fittings.'
+      title: 'Precision Engineering', 
+      category: 'Technical Design',
+      description: 'High-tolerance mechanical components and structural assemblies designed for resilience in extreme operational environments.'
     },
     { 
       id: 6, 
       img: project6, 
-      title: 'Cross-Country Utility Deployment', 
-      category: 'Field Services',
-      description: 'End-to-end installation and commissioning of strategic utility pipelines in challenging geological terrains.'
+      title: 'Field Commissioning', 
+      category: 'Execution',
+      description: 'Comprehensive end-to-end installation, testing, and operational handover services for complex multi-disciplinary engineering projects.'
     },
     { 
       id: 7, 
       img: project7, 
-      title: 'Heavy-Duty Mechanical Assembly', 
-      category: 'Technical Design',
-      description: 'On-site fabrication and assembly of large-diameter industrial piping systems for massive fluid management.'
+      title: 'Technical Audits', 
+      category: 'Research',
+      description: 'Detailed safety assessments and efficiency audits for existing industrial facilities to ensure compliance with global standards.'
     },
     { 
       id: 8, 
       img: project8, 
-      title: 'External Flow Control Systems', 
-      category: 'Automation',
-      description: 'Design and deployment of multi-channel valve networks for efficient fluid distribution and pressure management.'
+      title: 'Commercial Solar Integration', 
+      category: 'Renewables',
+      description: 'Large-scale photovoltaic system integration for commercial buildings, focused on energy cost optimization and sustainability goals.'
     },
     { 
       id: 9, 
       img: project9, 
-      title: 'Site Supervision & Quality Control', 
-      category: 'Consultation',
-      description: 'Expert on-site technical inspection and project management services for large-scale industrial facility development.'
+      title: 'Climate Control Solutions', 
+      category: 'Logistics',
+      description: 'Precision HVAC and environmental control systems tailored for pharmaceutical storage and temperature-sensitive food logistics.'
     },
     { 
       id: 10, 
       img: project10, 
-      title: 'Custom L.T. Control Panels', 
-      category: 'Electrical',
-      description: 'Setup and configuration of bespoke Low Tension (L.T.) electrical control centers for industrial power distribution.'
+      title: 'Tailored Industrial Solutions', 
+      category: 'Custom Engineering',
+      description: 'Bespoke engineering designs and prototypes addressing unique operational challenges across various industrial sectors.'
     },
     { 
       id: 11, 
       img: project11, 
-      title: 'Field Engineering Support Team', 
-      category: 'Operations',
-      description: 'Our dedicated team of on-site engineers ensuring seamless project execution and operational handover.'
+      title: 'Proactive Systems Support', 
+      category: 'Maintenance',
+      description: 'Dedicated ongoing maintenance and technical support packages to maximize uptime and longevity of infrastructure projects.'
     },
     { 
       id: 12, 
       img: project12, 
-      title: 'Foundational Site Infrastructure', 
-      category: 'Construction',
-      description: 'Strategic civil engineering and site development for complex industrial complexes and greenfield projects.'
+      title: 'Eco-Friendly Power Grids', 
+      category: 'Sustainability',
+      description: 'Design and implementation of low-carbon power distribution networks supporting sustainable urbanization and green initiatives.'
     },
     { 
       id: 13, 
       img: project13, 
-      title: 'Elevated Storage Reservoir (ESR)', 
-      category: 'Municipal Works',
-      description: 'Turnkey delivery of elevated water storage tanks (ESR) with integrated structural integrity and smart monitoring.'
+      title: 'Structural Engineering', 
+      category: 'Consultancy',
+      description: 'High-level structural analysis and consultancy for robust industrial frameworks, ensuring safety and durability under load.'
+    },
+    { 
+      id: 14, 
+      img: project14, 
+      title: 'Next-Gen Industrial IoT', 
+      category: 'Innovation',
+      description: 'Future-ready connectivity and automation solutions driving Industry 4.0 transformation for modern manufacturing enterprises.'
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.95, y: 20 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
   return (
-    <div className="min-h-screen bg-white font-sans selection:bg-[#00A88E]/30">
+    <div className="min-h-screen bg-space-900 pt-28 pb-20 overflow-hidden relative">
       <Helmet>
-        <title>Portfolio | Smaatech Engineering Group</title>
+        <title>Project Works | Smaatech Engineering</title>
+        <meta name="description" content="Explore Smaatech Engineering's portfolio of industrial projects, from Solar Cold Storage to advanced IoT Power Systems. Delivering world-class engineering solutions globally." />
+        <meta property="og:title" content="Project Works | Smaatech Engineering Portfolio" />
+        <meta property="og:description" content="A curated gallery of our latest engineering masterpieces and sustainable industrial solutions." />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Helmet>
 
-      {/* EATech Style Top Bar */}
-      <div className="bg-[#1a1a1a] text-white py-2 px-4 hidden md:block">
-        <div className="container-custom flex justify-between items-center text-[11px] font-medium tracking-wide">
-            <div className="flex gap-6">
-                <div className="flex items-center gap-2">
-                    <Phone className="w-3 h-3 text-[#00A88E]" />
-                    <span>+91 94371 44444</span>
-                </div>
-                <div className="flex items-center gap-2 border-l border-white/10 pl-6">
-                    <Mail className="w-3 h-3 text-[#00A88E]" />
-                    <span>info@smaatechengineering.com</span>
-                </div>
-            </div>
-            <div className="flex gap-4 items-center">
-                <Facebook className="w-3 h-3 hover:text-[#00A88E] cursor-pointer transition-colors" />
-                <Twitter className="w-3 h-3 hover:text-[#00A88E] cursor-pointer transition-colors" />
-                <Linkedin className="w-3 h-3 hover:text-[#00A88E] cursor-pointer transition-colors" />
-                <Instagram className="w-3 h-3 hover:text-[#00A88E] cursor-pointer transition-colors" />
-            </div>
-        </div>
+      {/* Background Decor */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] bg-accent-500/10 rounded-full blur-[120px]"></div>
       </div>
 
-      {/* EATech Style Sticky Header */}
-      <header className="sticky top-0 bg-white border-b border-gray-100 z-50 py-4 shadow-sm">
-        <div className="container-custom flex justify-between items-center">
-            <div className="flex items-center gap-10">
-                <button 
-                    onClick={() => setView('home')}
-                    className="flex items-center text-gray-400 hover:text-black transition-all group"
-                >
-                    <ArrowLeft className="w-4 h-4 mr-2" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest">Home</span>
-                </button>
-                <div className="hidden lg:flex gap-8 text-[12px] font-bold uppercase tracking-wider text-gray-800">
-                    <span className="cursor-pointer hover:text-[#00A88E]">About Us</span>
-                    <span className="text-[#00A88E] border-b-2 border-[#00A88E]">Projects</span>
-                    <span className="cursor-pointer hover:text-[#00A88E]">Services</span>
-                    <span className="cursor-pointer hover:text-[#00A88E]">Contact</span>
+      <div className="container-custom relative z-10">
+        {/* Header Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-16"
+        >
+          <button 
+            onClick={() => setView('home')}
+            className="flex items-center text-slate-400 hover:text-white transition-colors mb-8 group"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
+            Back to Home
+          </button>
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-400 text-xs font-bold tracking-widest uppercase mb-4">
+                <Globe className="w-3.5 h-3.5 mr-2" />
+                Global Impact
+              </span>
+              <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-4 leading-tight">
+                Project <span className="text-gradient">Works</span>
+              </h1>
+              <p className="text-xl text-slate-400 max-w-2xl font-light">
+                Explore our portfolio of cutting-edge engineering solutions and industrial masterpieces delivered across the globe.
+              </p>
+            </div>
+            
+            <div className="flex gap-4">
+              <div className="glass-card px-6 py-4 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-brand-500/20 flex items-center justify-center">
+                  <Award className="w-6 h-6 text-brand-400" />
                 </div>
+                <div>
+                  <div className="text-2xl font-bold text-white leading-none">100+</div>
+                  <div className="text-xs text-slate-400 uppercase tracking-wider mt-1">Completed</div>
+                </div>
+              </div>
             </div>
-            <button className="bg-black text-white px-6 py-2.5 rounded-md text-[11px] font-bold uppercase tracking-widest hover:bg-[#00A88E] transition-all">
-                Download Catalogue
+          </div>
+        </motion.div>
+
+        {/* Gallery Grid */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {projects.map((project) => (
+            <motion.div 
+              key={project.id}
+              variants={itemVariants}
+              whileHover={{ y: -10 }}
+              className="group relative cursor-pointer"
+              onClick={() => setSelectedProject(project)}
+            >
+              <div className="glass-card overflow-hidden h-full flex flex-col border-white/5 group-hover:border-brand-500/30 transition-all duration-500 shadow-lg hover:shadow-brand-500/10">
+                {/* Image Container */}
+                <div className="relative h-64 overflow-hidden">
+                  <img 
+                    src={project.img} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-space-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+                  
+                  {/* Category Tag */}
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 rounded-lg bg-white/10 backdrop-blur-md border border-white/10 text-[10px] font-bold text-white uppercase tracking-widest">
+                      {project.category}
+                    </span>
+                  </div>
+
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-14 h-14 rounded-full bg-brand-500 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.5)] transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                      <Maximize2 className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6 flex-grow flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-brand-400 transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-slate-400 leading-relaxed line-clamp-2">
+                      {project.description}
+                    </p>
+                  </div>
+                  
+                  <div className="mt-6 pt-6 border-t border-white/5 flex items-center justify-between">
+                    <div className="flex items-center text-xs text-slate-500 gap-1.5 group-hover:text-brand-400 transition-colors">
+                      <Target className="w-3.5 h-3.5" />
+                      View Project Details
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-brand-500 transition-all duration-300">
+                      <LayoutGrid className="w-4 h-4 text-white" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Closing CTA */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="mt-24 p-12 glass-card text-center relative overflow-hidden group"
+        >
+          <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
+          <div className="relative z-10">
+            <h2 className="text-3xl font-black text-white mb-6">Have a project in mind?</h2>
+            <p className="text-lg text-slate-400 mb-8 max-w-xl mx-auto">
+              We bring world-class engineering expertise to every challenge. Let's build the future together.
+            </p>
+            <button 
+              onClick={() => setView('home')}
+              className="btn-primary px-10"
+            >
+              Get In Touch
             </button>
-        </div>
-      </header>
+          </div>
+        </motion.div>
+      </div>
 
-      {/* Hero Section (EATech Style) */}
-      <section className="bg-gray-50 py-20 border-b border-gray-100">
-        <div className="container-custom text-center">
-            <h2 className="text-[#00A88E] text-xs font-black uppercase tracking-[0.4em] mb-4">Our Portfolios</h2>
-            <h1 className="text-4xl md:text-5xl font-black text-black tracking-tight mb-6">LATEST <span className="text-[#00A88E]">PROJECTS</span></h1>
-            <div className="w-20 h-1 bg-[#00A88E] mx-auto mb-8"></div>
-            <p className="max-w-2xl mx-auto text-gray-500 text-sm md:text-base leading-relaxed">
-                Explore our track record of delivering high-quality engineering solutions and sustainable infrastructure across multiple industrial sectors.
-            </p>
-        </div>
-      </section>
-
-      {/* EATech Style Grid Gallery */}
-      <section className="py-24">
-        <div className="container-custom">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                {projects.map((project, index) => (
-                    <motion.div
-                        key={project.id}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        viewport={{ once: true }}
-                        className="bg-white rounded-lg overflow-hidden group border border-gray-100 hover:border-[#00A88E] transition-all duration-500 shadow-[0px_15px_40px_rgba(0,0,0,0.03)] hover:shadow-[0px_20px_50px_rgba(0,168,142,0.1)]"
-                        onClick={() => setSelectedProject(project)}
-                    >
-                        <div className="aspect-[16/11] overflow-hidden relative">
-                            <img 
-                                src={project.img} 
-                                alt={project.title} 
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                            />
-                            <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-all"></div>
-                        </div>
-                        <div className="p-8 text-center border-t-0 border-x-0 border-b-2 border-transparent group-hover:border-[#00A88E] transition-all">
-                            <span className="text-[#00A88E] text-[10px] font-black uppercase tracking-[0.2em] mb-3 block">
-                                {project.category}
-                            </span>
-                            <h3 className="text-lg font-black text-black mb-4 uppercase tracking-tighter group-hover:text-[#00A88E] transition-colors leading-tight">
-                                {project.title}
-                            </h3>
-                            <p className="text-gray-400 text-xs font-medium leading-relaxed line-clamp-3 mb-6">
-                                {project.description}
-                            </p>
-                            <button className="text-[10px] font-black uppercase tracking-widest text-black border-b-2 border-black group-hover:border-[#00A88E] group-hover:text-[#00A88E] transition-all pb-1">
-                                View Details
-                            </button>
-                        </div>
-                    </motion.div>
-                ))}
-            </div>
-        </div>
-      </section>
-
-      {/* Footer Info Bar (EATech Style) */}
-      <footer className="bg-[#1a1a1a] text-white py-16">
-        <div className="container-custom text-center">
-            <h3 className="text-2xl font-black mb-8 tracking-tighter">SMAATECH <span className="text-[#00A88E]">ENGINEERING</span></h3>
-            <p className="text-gray-500 text-sm mb-12 max-w-lg mx-auto leading-relaxed">
-                Registered office: Plot No. 1022/2750, Bhubaneswar Sahara Unit No. 34, Bhubaneswar, Odisha.
-            </p>
-            <div className="flex justify-center gap-8 text-[11px] font-bold uppercase tracking-widest">
-                <span className="hover:text-[#00A88E] cursor-pointer">Projects</span>
-                <span className="hover:text-[#00A88E] cursor-pointer">Services</span>
-                <span className="hover:text-[#00A88E] cursor-pointer">Privacy Policy</span>
-                <span className="hover:text-[#00A88E] cursor-pointer">Contact Us</span>
-            </div>
-            <div className="mt-12 pt-8 border-t border-white/5 text-[10px] text-gray-600 uppercase tracking-widest">
-                © 2026 Smaatech Group. All Rights Reserved.
-            </div>
-        </div>
-      </footer>
-
-      {/* Details Lightbox (Matches Theme) */}
+      {/* Lightbox Modal */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div 
@@ -254,47 +306,89 @@ export function ProjectWorks({ setView }: ProjectWorksProps) {
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
           >
             <div 
-              className="absolute inset-0 bg-black/95 backdrop-blur-sm"
+              className="absolute inset-0 bg-space-950/95 backdrop-blur-2xl"
               onClick={() => setSelectedProject(null)}
             ></div>
             
             <motion.div 
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              className="relative max-w-4xl w-full bg-white rounded-lg overflow-hidden shadow-2xl flex flex-col md:flex-row h-auto max-h-[85vh]"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="relative max-w-5xl w-full glass-card overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.5)] border-white/10 flex flex-col md:flex-row h-full max-h-[90vh]"
             >
               <button 
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-50 p-2 bg-black text-white rounded-full hover:bg-[#00A88E] transition-all"
+                className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/50 text-white hover:bg-brand-500 transition-all duration-300"
               >
-                <X className="w-5 h-5" />
+                <X className="w-6 h-6" />
               </button>
 
-              <div className="md:w-1/2">
+              {/* Image Section */}
+              <div className="md:w-2/3 bg-black/40 flex items-center justify-center overflow-hidden border-b md:border-b-0 md:border-r border-white/5">
                 <img 
                   src={selectedProject.img} 
                   alt={selectedProject.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               </div>
               
-              <div className="md:w-1/2 p-12 flex flex-col justify-center">
-                  <span className="text-[#00A88E] text-[10px] font-black uppercase tracking-[0.3em] mb-4 inline-block">
+              {/* Content Section */}
+              <div className="md:w-1/3 p-8 md:p-10 overflow-y-auto bg-space-900/50 flex flex-col">
+                <div className="flex-grow">
+                  <span className="inline-block px-3 py-1 rounded-lg bg-brand-500/10 border border-brand-500/30 text-[10px] font-bold text-brand-400 uppercase tracking-widest mb-6">
                     {selectedProject.category}
                   </span>
-                  <h2 className="text-2xl md:text-3xl font-black text-black mb-6 uppercase tracking-tight leading-tight">
+                  
+                  <h2 className="text-3xl font-black text-white mb-6 leading-tight">
                     {selectedProject.title}
                   </h2>
-                  <p className="text-gray-500 leading-relaxed text-sm font-medium mb-10">
+                  
+                  <div className="h-1 w-12 bg-brand-500 mb-8 rounded-full"></div>
+                  
+                  <p className="text-slate-400 leading-relaxed mb-8 text-sm">
                     {selectedProject.description}
                   </p>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 text-slate-300 group">
+                      <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-brand-500/20 transition-colors">
+                        <Globe className="w-4 h-4 text-brand-400" />
+                      </div>
+                      <span className="text-xs font-semibold uppercase tracking-wider">International Delivery</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-slate-300 group">
+                      <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-brand-500/20 transition-colors">
+                        <Award className="w-4 h-4 text-brand-400" />
+                      </div>
+                      <span className="text-xs font-semibold uppercase tracking-wider">ISO 9001 Certified</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-12 pt-8 border-t border-white/5">
                   <button 
-                    onClick={() => setSelectedProject(null)}
-                    className="py-4 px-8 bg-black text-white font-black text-[10px] uppercase tracking-widest rounded-md hover:bg-[#00A88E] transition-all shadow-lg"
+                    onClick={() => {
+                        setSelectedProject(null);
+                        setView('home'); 
+                        setTimeout(() => {
+                           const contactSection = document.getElementById('contact');
+                           if (contactSection) {
+                              contactSection.scrollIntoView({ behavior: 'smooth' });
+                           }
+                        }, 300);
+                    }}
+                    className="btn-primary w-full justify-center shadow-[0_0_30px_rgba(16,185,129,0.3)] group"
                   >
-                    Close Project
+                    Discuss This Project
+                    <motion.span 
+                        animate={{ x: [0, 4, 0] }} 
+                        transition={{ repeat: Infinity, duration: 1.5 }}
+                        className="ml-2"
+                    >
+                        →
+                    </motion.span>
                   </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>
