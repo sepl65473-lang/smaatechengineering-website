@@ -1,33 +1,112 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle } from 'lucide-react';
+
+const gallerySlides = [
+  {
+    image: '/images/project-gallery/iot-control-board-assembly.jpeg',
+    title: 'IoT Control Board Assembly',
+    category: 'Electronics Lab',
+    description: 'Prototype board assembly and testing for connected field-control hardware.',
+    position: 'center 28%',
+    note: 'Custom IoT control boards assembled in-house at our Electronics Lab. Each board is tested for field deployment in remote monitoring and automation applications.',
+  },
+  {
+    image: '/images/project-gallery/electromagnetic-flow-meter-converter.jpeg',
+    title: 'Electromagnetic Flow Meter Converter',
+    category: 'Flow Instrumentation',
+    description: 'Field-mounted flow measurement hardware used for water-network monitoring.',
+    position: 'center center',
+    note: 'Electromagnetic flow meter converters installed for accurate real-time flow measurement across municipal water distribution and treatment plant networks.',
+  },
+  {
+    image: '/images/project-gallery/plc-control-panel-wiring.jpeg',
+    title: 'PLC Control Panel Wiring',
+    category: 'Automation Panel',
+    description: 'Panel-side PLC, relay, and terminal wiring prepared for operational control logic.',
+    position: 'center top',
+    note: 'Panel wiring executed to IEC standards — PLC, relay, and terminal blocks configured for programmable logic control in industrial and water-sector installations.',
+  },
+  {
+    image: '/images/project-gallery/clear-water-pump-house.jpeg',
+    title: 'Clear Water Pump House',
+    category: 'Water Utility',
+    description: 'Pump-house layout serving treated-water movement through plant distribution lines.',
+    position: 'center center',
+    note: 'Pump house infrastructure built for treated water delivery, integrating VFD-controlled pumps and SCADA-linked flow monitoring for efficient distribution.',
+  },
+  {
+    image: '/images/project-gallery/aeration-unit-hmi-screen.jpeg',
+    title: 'Aeration Unit HMI Screen',
+    category: 'SCADA Interface',
+    description: 'Operator display for aeration-stage monitoring within a water-treatment workflow.',
+    position: 'center center',
+    note: 'SCADA-based HMI for real-time aeration monitoring — operators control dissolved oxygen levels and blower states directly from this screen during treatment.',
+  },
+  {
+    image: '/images/project-gallery/chemical-dosing-hmi-screen.jpeg',
+    title: 'Chemical Dosing HMI Screen',
+    category: 'Process Control',
+    description: 'HMI view for alum and lime dosing control in treatment-plant operations.',
+    position: 'center center',
+    note: 'Chemical dosing control interface deployed at KWSS Gunpur Chemical House — manages alum and lime dosing with automated setpoint control and live pump status.',
+  },
+  {
+    image: '/images/project-gallery/backwash-pump-hmi-screen.jpeg',
+    title: 'Backwash Pump HMI Screen',
+    category: 'Filter Backwash',
+    description: 'Backwash sequence monitoring interface used during filter cleaning operations.',
+    position: 'center center',
+    note: 'Automated backwash sequence control screen — reduces manual intervention during filter cleaning cycles and improves filter bed recovery efficiency.',
+  },
+];
 
 export function CaseStudySection() {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    if (isHovered) {
+      return undefined;
+    }
+
+    const timer = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % gallerySlides.length);
+    }, 2000);
+
+    return () => window.clearInterval(timer);
+  }, [isHovered]);
+
+  const prevSlide = () => {
+    setActiveSlide((current) => (current - 1 + gallerySlides.length) % gallerySlides.length);
+  };
+
+  const nextSlide = () => {
+    setActiveSlide((current) => (current + 1) % gallerySlides.length);
+  };
+
   return (
     <section id="engineering-excellence" className="bg-space-900 relative z-10 pb-24">
-      
-      {/* Title Section */}
       <div className="pt-24 pb-16 px-4 md:px-8 text-center">
-        <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 text-white">
-                Engineering Excellence
-            </h2>
-            <p className="text-lg md:text-xl text-slate-400 font-light max-w-3xl mx-auto">
-                Specialized engineering services tailored for the needs of modern India.
-            </p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 text-white">
+            Engineering Excellence
+          </h2>
+          <p className="text-lg md:text-xl text-slate-400 font-light max-w-3xl mx-auto">
+            Specialized engineering services tailored for the needs of modern India.
+          </p>
         </motion.div>
       </div>
 
       <div className="container-custom mx-auto px-4 md:px-8 max-w-7xl">
         <div className="flex flex-col gap-24 py-12">
-          
-          {/* Water Solutions (Text Left, Image Right) */}
           <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -47,7 +126,7 @@ export function CaseStudySection() {
                 <li className="flex items-center text-[1.1rem] font-medium text-white"><CheckCircle className="w-5 h-5 text-emerald-500 mr-3" /> IRC & IS compliant designs</li>
               </ul>
             </motion.div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -58,9 +137,8 @@ export function CaseStudySection() {
             </motion.div>
           </div>
 
-          {/* Automation (Image Left, Text Right) */}
           <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center flex-col-reverse md:flex-row">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -69,7 +147,7 @@ export function CaseStudySection() {
             >
               <img src="/images/automation.png" alt="Automation and SCADA" className="w-full h-full object-cover" />
             </motion.div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -81,18 +159,17 @@ export function CaseStudySection() {
               </div>
               <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">Industrial Automation & SCADA</h3>
               <p className="text-lg text-slate-400 font-light mb-8 leading-relaxed">
-                SCADA systems, PLC integration, and real-time monitoring. We provide advanced instrumentation and control for process industries and water sectors.
+                SCADA systems, PLC integration, and real-time monitoring support for process industries and water-sector operations.
               </p>
               <div className="glass-card p-6 border border-white/10 rounded-2xl shadow-inner">
                 <div className="text-emerald-400 font-bold text-[1.1rem] mb-2">Energy Efficiency</div>
-                <p className="text-[1.05rem] text-slate-400">Reducing operational costs by up to 30% via precision automation.</p>
+                <p className="text-[1.05rem] text-slate-400">Improving operational visibility through practical automation and instrumentation.</p>
               </div>
             </motion.div>
           </div>
 
-          {/* Smart Agriculture (Text Left, Image Right) */}
           <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -104,7 +181,7 @@ export function CaseStudySection() {
               </div>
               <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">IoT-Enabled Agritech Hubs</h3>
               <p className="text-lg text-slate-400 font-light mb-8 leading-relaxed">
-                Bridging the gap between technology and the field. Our agritech hubs reduce post-harvest losses by 40% using IoT climate control and smart warehousing.
+                Bridging the gap between technology and the field with IoT monitoring, climate awareness, and practical smart warehousing support.
               </p>
               <div className="flex gap-6 mb-6">
                 <div className="glass-card p-5 border border-white/10 rounded-2xl w-44 shadow-inner">
@@ -117,7 +194,7 @@ export function CaseStudySection() {
                 </div>
               </div>
             </motion.div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -127,51 +204,116 @@ export function CaseStudySection() {
               <img src="/images/agritech.png" alt="Agritech Hub" className="w-full h-full object-cover" />
             </motion.div>
           </div>
-
         </div>
       </div>
 
-      {/* Project Gallery Grid */}
       <div className="pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-black inline-block text-white">
             Project Gallery
           </h2>
-          <div className="mt-4 w-16 h-[3px] bg-brand-500 mx-auto rounded-full"></div>
+<div className="mt-4 w-16 h-[3px] bg-brand-500 mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            { img: '/images/water.png', title: 'Water Infrastructure' },
-            { img: '/images/solar.png', title: 'Solar Off-grid Pumping' },
-            { img: '/images/training.png', title: 'Training Institute' },
-            { img: '/images/automation.png', title: 'SCADA Integration' },
-            { img: '/images/agritech.png', title: 'Smart Warehousing' },
-            { img: '/images/industry_dairy.png', title: 'Dairy Logistics' },
-            { img: '/images/industry_fisheries.png', title: 'Fisheries Cold Chain' },
-            { img: '/images/industry_fruits_veg.png', title: 'Horticulture Hub' },
-            { img: '/images/hero_solar_refrigeration.png', title: 'Solar Refrigeration' }
-          ].map((item, i) => (
-            <motion.div 
-                key={i} 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative h-[250px] rounded-[1.5rem] overflow-hidden glass-card group border border-white/10 shadow-2xl"
-            >
-              <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-              <div className="absolute inset-0 bg-gradient-to-t from-space-900/80 via-transparent to-transparent"></div>
-              <div className="absolute bottom-6 left-6 right-6">
-                <span className="text-[1.05rem] font-bold text-white tracking-wide">
-                    {item.title}
-                </span>
+        <div className="overflow-hidden">
+          <div
+            className="relative overflow-hidden rounded-[26px] border border-white/10 bg-[#d8e3ee] shadow-[0_24px_60px_-34px_rgba(15,23,42,0.32)]"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <div className="grid min-h-[360px] md:min-h-[560px] lg:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.75fr)]">
+              <div className="relative overflow-hidden bg-[#cfdce9]">
+                <motion.div
+                  animate={{ x: `-${activeSlide * 100}%` }}
+                  transition={{ duration: 0.65, ease: 'easeInOut' }}
+                  className="flex h-full w-full"
+                >
+                  {gallerySlides.map((slide) => (
+                    <div key={slide.image} className="relative h-[360px] min-w-full md:h-[560px]">
+                      <div
+                        className="absolute inset-0 scale-105 bg-center bg-cover opacity-18 blur-2xl"
+                        style={{ backgroundImage: `url(${slide.image})` }}
+                      />
+                      <img
+                        src={slide.image}
+                        alt={slide.title}
+                        className="absolute inset-0 h-full w-full object-contain"
+                        style={{ objectPosition: slide.position }}
+                      />
+                    </div>
+                  ))}
+                </motion.div>
+                {/* Gradient overlay — hides phone watermark at bottom of images */}
+                <div className="pointer-events-none absolute bottom-0 inset-x-0 h-[13%] z-10 bg-gradient-to-t from-[#cfdce9] to-transparent" />
+
+                {/* Prev / Next buttons — inside image panel only */}
+                <div className="absolute inset-y-0 left-0 z-20 flex items-center pl-3 md:pl-5">
+                  <button
+                    type="button"
+                    onClick={prevSlide}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-space-950/60 text-white transition-colors hover:border-brand-500/50 hover:text-brand-300"
+                    aria-label="Previous slide"
+                  >
+                    <ArrowLeft className="h-4 w-4" />
+                  </button>
+                </div>
+                <div className="absolute inset-y-0 right-0 z-20 flex items-center pr-3 md:pr-5">
+                  <button
+                    type="button"
+                    onClick={nextSlide}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-space-950/60 text-white transition-colors hover:border-brand-500/50 hover:text-brand-300"
+                    aria-label="Next slide"
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+                </div>
               </div>
-            </motion.div>
-          ))}
+
+              <div className="relative flex flex-col justify-between bg-space-950 px-6 py-8 md:px-10 md:py-10">
+                <div className="flex flex-col gap-5">
+                  <p className="text-[11px] font-extrabold uppercase tracking-[0.28em] text-brand-400">
+                    {gallerySlides[activeSlide].category}
+                  </p>
+                  <h3 className="text-[1.6rem] font-black leading-tight text-white md:text-[2.2rem]">
+                    {gallerySlides[activeSlide].title}
+                  </h3>
+                  <p className="text-[0.95rem] font-normal leading-relaxed text-white/80 md:text-base">
+                    {gallerySlides[activeSlide].description}
+                  </p>
+
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-5">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-slate-400">Project Note</p>
+                    <p className="mt-2 text-sm font-light leading-relaxed text-slate-300">
+                      {gallerySlides[activeSlide].note}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex items-center justify-between gap-4">
+                  <div className="flex gap-2">
+                    {gallerySlides.map((slide, index) => (
+                      <button
+                        key={slide.title}
+                        type="button"
+                        onClick={() => setActiveSlide(index)}
+                        className={`h-2.5 rounded-full transition-all ${
+                          activeSlide === index ? 'w-8 bg-brand-400' : 'w-2.5 bg-white/30'
+                        }`}
+                        aria-label={`Show ${slide.title}`}
+                      />
+                    ))}
+                  </div>
+
+                  <div className="rounded-full border border-white/10 bg-white/[0.07] px-3 py-2 text-xs font-semibold text-white/60">
+                    {activeSlide + 1} / {gallerySlides.length}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
-
     </section>
   );
 }
