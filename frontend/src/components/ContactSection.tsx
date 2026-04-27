@@ -40,12 +40,13 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="section-padding bg-space-900 border-t border-white/5 relative z-10 overflow-hidden">
+    <section id="contact" className="relative z-10 overflow-hidden border-t border-slate-200 bg-[#0f2f3d] pt-24 pb-14 md:pt-28 md:pb-20">
       
       {/* Dynamic Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-brand-500/5 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-accent-500/5 rounded-full blur-[100px]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:72px_72px]"></div>
+        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-brand-400/15 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-accent-400/10 rounded-full blur-[100px]"></div>
       </div>
 
       <div className="container-custom relative z-10">
@@ -54,16 +55,16 @@ export function ContactSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-black mb-6 text-white tracking-tighter"
+            className="text-4xl md:text-6xl font-black mb-6 text-[#f8fafc]"
           >
-            Initiate a <span className="text-gradient">Partnership</span>
+            Initiate a <span className="bg-gradient-to-r from-brand-100 via-white to-blue-200 bg-clip-text text-transparent">Partnership</span>
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-slate-400 text-xl font-light"
+            className="text-slate-200 text-xl font-light"
           >
             Whether it's a 50MW solar plant or an IoT-enabled warehouse, our engineering teams are ready to architect your next leap forward.
           </motion.p>
@@ -79,23 +80,23 @@ export function ContactSection() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-2 space-y-8"
           >
-            <div className="glass-card p-8 group hover:border-brand-500/30 transition-colors shadow-2xl">
-              <h3 className="text-2xl font-bold text-white mb-8">Corporate Headquarters</h3>
+            <div className="rounded-3xl border border-white/15 bg-white p-8 shadow-[0_22px_70px_-40px_rgba(0,0,0,0.7)] transition-colors group hover:border-brand-500/30">
+              <h3 className="text-2xl font-bold text-slate-950 mb-8">Corporate Headquarters</h3>
               
               <div className="space-y-6">
                 <div className="flex items-start">
                   <MapPin className="w-6 h-6 text-brand-400 mr-4 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-bold text-white mb-1">{companyProfile.locationShort}</h4>
+                    <h4 className="font-bold text-slate-950 mb-1">{companyProfile.locationShort}</h4>
                   </div>
                 </div>
                 
-                <div className="w-full h-px bg-white/10"></div>
+                <div className="w-full h-px bg-slate-200"></div>
                 
                 <div className="flex items-center group/link cursor-pointer">
                   <Mail className="w-6 h-6 text-brand-400 mr-4 flex-shrink-0" />
                   <div className="flex-1">
-                    <p className="font-bold text-white group-hover/link:text-brand-400 transition-colors">{companyProfile.email}</p>
+                    <p className="font-bold text-slate-950 group-hover/link:text-brand-500 transition-colors">{companyProfile.email}</p>
                   </div>
                   <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover/link:text-brand-400 transition-colors opacity-0 group-hover/link:opacity-100" />
                 </div>
@@ -103,16 +104,16 @@ export function ContactSection() {
                 <div className="flex items-center group/link cursor-pointer">
                   <Phone className="w-6 h-6 text-brand-400 mr-4 flex-shrink-0" />
                   <div className="flex-1">
-                    <p className="font-bold text-white group-hover/link:text-brand-400 transition-colors">{companyProfile.phoneDisplay}</p>
+                    <p className="font-bold text-slate-950 group-hover/link:text-brand-500 transition-colors">{companyProfile.phoneDisplay}</p>
                   </div>
                   <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover/link:text-brand-400 transition-colors opacity-0 group-hover/link:opacity-100" />
                 </div>
               </div>
             </div>
 
-            <div className="p-8 rounded-3xl bg-brand-500/5 border border-brand-500/10">
-              <h4 className="font-bold text-white mb-2 italic">Rapid Engineering Inquiry</h4>
-              <p className="text-sm text-slate-400 leading-relaxed font-light">Response times for project architecting typically range between 24-48 business hours.</p>
+            <div className="p-8 rounded-3xl border border-brand-300/30 bg-[#0b2533]/90 shadow-[0_18px_46px_-34px_rgba(0,0,0,0.9)] backdrop-blur-md">
+              <h4 className="font-bold text-[#ffffff] mb-2 italic">Rapid Engineering Inquiry</h4>
+              <p className="text-sm text-[#dbeafe] leading-relaxed font-normal">Response times for project architecting typically range between 24-48 business hours.</p>
             </div>
           </motion.div>
 
@@ -124,29 +125,32 @@ export function ContactSection() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-3"
           >
-            <div className="glass-card p-8 md:p-12 shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 blur-3xl rounded-full"></div>
+            <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-white p-8 shadow-[0_22px_70px_-40px_rgba(0,0,0,0.7)] md:p-12">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 blur-3xl rounded-full"></div>
               
               <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
-                    <input 
+                    <label className="text-xs font-bold uppercase tracking-widest text-slate-600 ml-1">Full Name</label>
+                    <input
                       required
                       type="text"
+                      autoComplete="name"
                       placeholder="Jane Doe"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-brand-500/50 focus:bg-white/10 transition-all placeholder:text-white/20"
+                      className="w-full rounded-xl border border-slate-300 bg-white px-4 py-4 text-slate-950 transition-all placeholder:text-slate-400 focus:border-brand-500/60 focus:bg-white focus:outline-none"
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase tracking-widest text-slate-400 ml-1">Email Address</label>
-                    <input 
+                    <label className="text-xs font-bold uppercase tracking-widest text-slate-600 ml-1">Email Address</label>
+                    <input
                       required
                       type="email"
+                      inputMode="email"
+                      autoComplete="email"
                       placeholder="jane@company.com"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-brand-500/50 focus:bg-white/10 transition-all placeholder:text-white/20"
+                      className="w-full rounded-xl border border-slate-300 bg-white px-4 py-4 text-slate-950 transition-all placeholder:text-slate-400 focus:border-brand-500/60 focus:bg-white focus:outline-none"
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
                     />
@@ -154,23 +158,24 @@ export function ContactSection() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-400 ml-1">Organization / Department</label>
-                  <input 
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-600 ml-1">Organization / Department</label>
+                  <input
                     type="text"
-                    placeholder="Engineering Division"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-brand-500/50 focus:bg-white/10 transition-all placeholder:text-white/20"
+                    autoComplete="organization"
+                    placeholder="Engineering Service"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-4 text-slate-950 transition-all placeholder:text-slate-400 focus:border-brand-500/60 focus:bg-white focus:outline-none"
                     value={formData.organization}
                     onChange={(e) => setFormData({...formData, organization: e.target.value})}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-slate-400 ml-1">Project Requirements</label>
+                  <label className="text-xs font-bold uppercase tracking-widest text-slate-600 ml-1">Project Requirements</label>
                   <textarea 
                     required
                     rows={4}
                     placeholder="Describe your infrastructure needs or tech specifications..."
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-brand-500/50 focus:bg-white/10 transition-all resize-none placeholder:text-white/20"
+                    className="w-full resize-none rounded-xl border border-slate-300 bg-white px-4 py-4 text-slate-950 transition-all placeholder:text-slate-400 focus:border-brand-500/60 focus:bg-white focus:outline-none"
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
                   ></textarea>

@@ -155,8 +155,9 @@
             align-items: center;
             gap: 0.4rem;
             background: rgba(255, 255, 255, 0.05);
-            padding: 0.25rem 0.75rem;
+            padding: 0.4rem 0.875rem;
             border-radius: 2rem;
+            font-size: 0.85rem;
         }
 
         .job-desc {
@@ -273,12 +274,88 @@
 
         /* --- Utils --- */
         .hidden-field { display: none !important; }
-        
+
+        /* --- Mobile Nav --- */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            background: none;
+            border: none;
+            min-width: 44px;
+            min-height: 44px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(2, 6, 23, 0.97);
+            z-index: 2000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+        }
+
+        .mobile-menu a:hover, .mobile-menu a.active { color: var(--primary); }
+
+        .mobile-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.75rem;
+            cursor: pointer;
+            padding: 8px;
+            min-width: 44px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links { display: none; }
             .form-row { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
             .hero h1 { font-size: 3rem; }
-            .nav-links { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .form-container { padding: 1.5rem; }
+            .job-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -293,8 +370,21 @@
                 <li><a href="/career" class="active">Careers</a></li>
                 <li><a href="/#contact">Contact</a></li>
             </ul>
+            <button class="hamburger" id="hamburger" aria-label="Open navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
+
+    <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Navigation menu">
+        <button class="mobile-close" id="mobile-close" aria-label="Close navigation menu">&#x2715;</button>
+        <a href="/">Home</a>
+        <a href="/#services">Services</a>
+        <a href="/career" class="active">Careers</a>
+        <a href="/#contact">Contact</a>
+    </div>
 
     <section class="hero">
         <div class="container">
@@ -333,7 +423,7 @@
                         </div>
                         <div class="form-group">
                             <label>Email Address</label>
-                            <input type="email" name="email" class="form-input" placeholder="john@example.com" required>
+                            <input type="email" inputmode="email" autocomplete="email" name="email" class="form-input" placeholder="john@example.com" required>
                             <div class="error-msg" id="err-email"></div>
                         </div>
                     </div>
@@ -341,7 +431,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Phone Number</label>
-                            <input type="tel" name="phone" class="form-input" placeholder="10-digit number" pattern="[0-9]{10}" required>
+                            <input type="tel" inputmode="tel" autocomplete="tel" name="phone" class="form-input" placeholder="10-digit number" pattern="[0-9]{10}" required>
                             <div class="error-msg" id="err-phone"></div>
                         </div>
                         <div class="form-group">
@@ -510,6 +600,17 @@
                 btn.disabled = false;
                 btn.textContent = 'Send Application';
             }
+        });
+
+        // Mobile Nav Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileClose = document.getElementById('mobile-close');
+
+        hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+        mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        mobileMenu.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => mobileMenu.classList.remove('open'));
         });
 
         // Init
