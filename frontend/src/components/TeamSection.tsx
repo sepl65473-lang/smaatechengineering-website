@@ -65,7 +65,7 @@ export function TeamSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.08 }}
-            className="flex flex-col justify-center rounded-[28px] border border-slate-300 bg-[#f8fbff] p-5 shadow-[0_28px_74px_-48px_rgba(15,23,42,0.65)] md:p-7"
+            className="flex flex-col justify-start rounded-[28px] border border-slate-300 bg-[#f8fbff] p-6 shadow-[0_28px_74px_-48px_rgba(15,23,42,0.65)] md:p-8"
           >
             <div className="mb-4">
               <p className="mb-3 text-sm font-black uppercase tracking-[0.24em] text-brand-500">
@@ -86,7 +86,7 @@ export function TeamSection() {
               </div>
             </div>
 
-            <p className="text-sm leading-relaxed text-slate-700">
+            <p className="text-base leading-relaxed text-slate-700">
               As the Founder and CEO of Smaatech Engineering Private Limited since September 2021, I lead
               with a strong focus on delivering innovative solutions in the water sector. With expertise in
               electro-mechanical and instrumentation automation, I oversee the construction of critical
@@ -94,7 +94,7 @@ export function TeamSection() {
               precision and efficiency in all projects.
             </p>
 
-            <p className="mt-3 text-sm leading-relaxed text-slate-700">
+            <p className="mt-4 text-base leading-relaxed text-slate-700">
               With over 19 years of professional experience, including leadership roles at Solvierone
               Corporation and Godrej &amp; Boyce, I have honed skills in sales and marketing leadership,
               product development, and business development. My mission is to drive strategic growth and
