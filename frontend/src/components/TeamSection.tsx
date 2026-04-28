@@ -40,7 +40,7 @@ export function TeamSection() {
           </motion.h2>
         </div>
 
-        <div className="grid items-stretch gap-8 lg:grid-cols-[minmax(340px,0.92fr)_minmax(0,1.08fr)]">
+        <div className="grid items-stretch gap-8 lg:grid-cols-[minmax(420px,1fr)_minmax(0,1fr)]">
           <motion.div
             initial={{ opacity: 0, x: -36 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -55,7 +55,7 @@ export function TeamSection() {
               <img
                 src="/images/team/smaatech-founder.png"
                 alt="Managing Director and CEO of Smaatech Group"
-                className="relative z-10 h-[500px] w-full object-cover object-top md:h-[600px] lg:h-full"
+                className="relative z-10 h-[560px] w-full object-cover object-center md:h-[660px] lg:h-full"
               />
             </div>
           </motion.div>
