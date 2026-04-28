@@ -139,7 +139,7 @@ export function Hero() {
           className="text-xl md:text-2xl mb-12 max-w-3xl leading-relaxed font-normal"
           style={{ color: 'rgba(255,255,255,0.85)', textShadow: '0 1px 12px rgba(0,0,0,0.4)' }}
         >
-          Transforming industries across Odisha with Water Management, IoT Automation, and Sustainable Energy. Driven by innovation, excellence, and community impact.
+          Transforming industries across PAN INDIA with Water Management, IoT Automation, and Sustainable Energy. Driven by innovation, excellence, and community impact.
         </motion.p>
 
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
