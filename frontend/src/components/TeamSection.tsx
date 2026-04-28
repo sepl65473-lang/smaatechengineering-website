@@ -20,7 +20,7 @@ export function TeamSection() {
       <div className="pointer-events-none absolute right-0 top-10 h-72 w-72 rounded-full bg-brand-500/14 blur-[110px]" />
 
       <div className="container-custom relative z-10">
-        <div className="mb-10 max-w-3xl">
+        <div className="mb-6 max-w-3xl">
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -34,7 +34,7 @@ export function TeamSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.08 }}
-            className="text-4xl font-black leading-tight text-slate-950 md:text-5xl"
+            className="text-3xl font-black leading-tight text-slate-950 md:text-4xl"
           >
             Meet the Managing Director & CEO <span className="text-gradient">Smaatech Group</span>
           </motion.h2>
@@ -67,14 +67,14 @@ export function TeamSection() {
             transition={{ duration: 0.65, delay: 0.08 }}
             className="flex flex-col justify-center rounded-[28px] border border-slate-300 bg-[#f8fbff] p-5 shadow-[0_28px_74px_-48px_rgba(15,23,42,0.65)] md:p-7"
           >
-            <div className="mb-7">
+            <div className="mb-4">
               <p className="mb-3 text-sm font-black uppercase tracking-[0.24em] text-brand-500">
                 Managing Director & CEO, Smaatech Group
               </p>
               <h3 className="text-2xl font-black leading-tight text-slate-950 md:text-3xl">
                 Manoj Kumar Mallick
               </h3>
-              <div className="mt-4 flex flex-wrap gap-3">
+              <div className="mt-2 flex flex-wrap gap-2">
                 <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-2 text-sm font-bold text-brand-600">
                   <MapPin className="h-4 w-4" />
                   Bhubaneswar, Odisha
