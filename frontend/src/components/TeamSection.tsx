@@ -55,7 +55,7 @@ export function TeamSection() {
               <img
                 src="/images/team/smaatech-founder.png"
                 alt="Managing Director and CEO of Smaatech Group"
-                className="relative z-10 h-[500px] w-full object-contain object-bottom md:h-[600px] lg:h-full"
+                className="relative z-10 h-[500px] w-full object-cover object-top md:h-[600px] lg:h-full"
               />
             </div>
           </motion.div>
