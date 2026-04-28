@@ -11,7 +11,7 @@ export function TeamSection() {
   return (
     <section
       id="team"
-      className="relative overflow-hidden border-y border-[#7894a7]/70 py-20 md:py-24"
+      className="relative overflow-hidden border-y border-[#7894a7]/70 py-24 md:py-32"
       style={{ background: 'linear-gradient(180deg, #d6e3ee 0%, #bfd1df 48%, #d8e5ef 100%)' }}
     >
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.055)_1px,transparent_1px)] bg-[size:76px_76px]" />
@@ -40,13 +40,13 @@ export function TeamSection() {
           </motion.h2>
         </div>
 
-        <div className="grid items-stretch gap-8 lg:grid-cols-[minmax(420px,1fr)_minmax(0,1fr)]">
+        <div className="grid items-stretch gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
           <motion.div
             initial={{ opacity: 0, x: -36 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65 }}
-            className="relative overflow-hidden rounded-[28px] border border-[#9bb2c2] bg-[#dce9f1] p-5 shadow-[0_28px_74px_-46px_rgba(15,23,42,0.72)]"
+            className="relative overflow-hidden rounded-[28px] border border-[#9bb2c2] bg-[#dce9f1] p-3 shadow-[0_28px_74px_-46px_rgba(15,23,42,0.72)] min-h-[600px] lg:min-h-[700px]"
           >
             <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.055)_1px,transparent_1px)] bg-[size:54px_54px]" />
             <div className="absolute inset-x-8 bottom-4 h-32 rounded-full bg-brand-400/18 blur-3xl" />
@@ -55,7 +55,7 @@ export function TeamSection() {
               <img
                 src="/images/team/smaatech-founder.png"
                 alt="Managing Director and CEO of Smaatech Group"
-                className="relative z-10 h-[560px] w-full object-cover object-center md:h-[660px] lg:h-full"
+                className="relative z-10 min-h-[580px] w-full object-cover object-center md:min-h-[680px] lg:h-full lg:min-h-full"
               />
             </div>
           </motion.div>
