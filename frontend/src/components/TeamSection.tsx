@@ -11,7 +11,7 @@ export function TeamSection() {
   return (
     <section
       id="team"
-      className="relative overflow-hidden border-y border-[#7894a7]/70 py-24 md:py-32"
+      className="relative overflow-hidden border-y border-[#7894a7]/70 py-10 md:py-12"
       style={{ background: 'linear-gradient(180deg, #d6e3ee 0%, #bfd1df 48%, #d8e5ef 100%)' }}
     >
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.055)_1px,transparent_1px)] bg-[size:76px_76px]" />
@@ -40,13 +40,13 @@ export function TeamSection() {
           </motion.h2>
         </div>
 
-        <div className="grid items-stretch gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+        <div className="grid items-stretch gap-8 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -36 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65 }}
-            className="relative overflow-hidden rounded-[28px] border border-[#9bb2c2] bg-[#dce9f1] p-3 shadow-[0_28px_74px_-46px_rgba(15,23,42,0.72)] min-h-[600px] lg:min-h-[700px]"
+            className="relative overflow-hidden rounded-[28px] border border-[#9bb2c2] bg-[#dce9f1] p-4 shadow-[0_28px_74px_-46px_rgba(15,23,42,0.72)]"
           >
             <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.055)_1px,transparent_1px)] bg-[size:54px_54px]" />
             <div className="absolute inset-x-8 bottom-4 h-32 rounded-full bg-brand-400/18 blur-3xl" />
@@ -55,7 +55,7 @@ export function TeamSection() {
               <img
                 src="/images/team/smaatech-founder.png"
                 alt="Managing Director and CEO of Smaatech Group"
-                className="relative z-10 min-h-[580px] w-full object-cover object-center md:min-h-[680px] lg:h-full lg:min-h-full"
+                className="relative z-10 h-[340px] w-full object-cover object-center md:h-[400px] lg:h-full"
               />
             </div>
           </motion.div>
@@ -65,13 +65,13 @@ export function TeamSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.08 }}
-            className="flex flex-col justify-center rounded-[28px] border border-slate-300 bg-[#f8fbff] p-7 shadow-[0_28px_74px_-48px_rgba(15,23,42,0.65)] md:p-10 lg:p-12"
+            className="flex flex-col justify-center rounded-[28px] border border-slate-300 bg-[#f8fbff] p-5 shadow-[0_28px_74px_-48px_rgba(15,23,42,0.65)] md:p-7"
           >
             <div className="mb-7">
               <p className="mb-3 text-sm font-black uppercase tracking-[0.24em] text-brand-500">
                 Managing Director & CEO, Smaatech Group
               </p>
-              <h3 className="text-3xl font-black leading-tight text-slate-950 md:text-4xl">
+              <h3 className="text-2xl font-black leading-tight text-slate-950 md:text-3xl">
                 Manoj Kumar Mallick
               </h3>
               <div className="mt-4 flex flex-wrap gap-3">
@@ -86,7 +86,7 @@ export function TeamSection() {
               </div>
             </div>
 
-            <p className="text-lg leading-relaxed text-slate-700">
+            <p className="text-sm leading-relaxed text-slate-700">
               As the Founder and CEO of Smaatech Engineering Private Limited since September 2021, I lead
               with a strong focus on delivering innovative solutions in the water sector. With expertise in
               electro-mechanical and instrumentation automation, I oversee the construction of critical
@@ -94,7 +94,7 @@ export function TeamSection() {
               precision and efficiency in all projects.
             </p>
 
-            <p className="mt-5 text-lg leading-relaxed text-slate-700">
+            <p className="mt-3 text-sm leading-relaxed text-slate-700">
               With over 19 years of professional experience, including leadership roles at Solvierone
               Corporation and Godrej &amp; Boyce, I have honed skills in sales and marketing leadership,
               product development, and business development. My mission is to drive strategic growth and
@@ -102,7 +102,7 @@ export function TeamSection() {
               advanced technology and collaborative efforts.
             </p>
 
-            <div className="mt-8 grid gap-4">
+            <div className="mt-4 grid gap-2">
               {founderHighlights.map((item) => (
                 <div key={item} className="flex gap-3 rounded-2xl border border-slate-200 bg-white p-4">
                   <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-500" />
