@@ -3,6 +3,14 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const db = require('../config/db');
 
+const DEFAULT_ADMIN_USER = 'sepl65473@gmail.com';
+const DEFAULT_ADMIN_PASS_HASH = '$2a$10$nu4OTSXO4RHyPCOYYujjR.r8Ztqyiir8mDvvstJR6Rae5VapyJ1am';
+
+const getAdminCredentials = () => ({
+  username: process.env.ADMIN_USER || DEFAULT_ADMIN_USER,
+  passwordHash: process.env.ADMIN_PASS_HASH || DEFAULT_ADMIN_PASS_HASH,
+});
+
 // Middleware to check if admin is logged in
 const isAdmin = (req, res, next) => {
   if (req.session.adminLoggedIn) {
@@ -13,6 +21,10 @@ const isAdmin = (req, res, next) => {
 };
 
 // Admin Login Page
+router.get('/', (req, res) => {
+  res.redirect('/admin/login');
+});
+
 router.get('/login', (req, res) => {
   if (req.session.adminLoggedIn) return res.redirect('/admin/dashboard');
   res.render('admin/login', { error: null });
@@ -22,31 +34,55 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const ip_address = req.ip;
+  const adminCredentials = getAdminCredentials();
+  const submittedUsername = String(username || '').trim().toLowerCase();
+  const expectedUsername = adminCredentials.username.trim().toLowerCase();
 
   try {
-    // 1. Check for recent failed attempts (5 in 15 mins)
-    const [attempts] = await db.query(
-      "SELECT COUNT(*) as count FROM admin_login_attempts WHERE ip_address = $1 AND attempted_at > NOW() - INTERVAL '15 minutes'",
-      [ip_address]
-    );
+    let failedAttempts = 0;
+    try {
+      const [attempts] = await db.query(
+        "SELECT COUNT(*) as count FROM admin_login_attempts WHERE ip_address = $1 AND attempted_at > NOW() - INTERVAL '15 minutes'",
+        [ip_address]
+      );
+      failedAttempts = Number(attempts?.[0]?.count || 0);
+    } catch (attemptError) {
+      console.error('Admin attempt lookup warning:', attemptError.message);
+    }
 
-    if (attempts[0].count >= 5) {
+    if (failedAttempts >= 5) {
       return res.render('admin/login', { error: 'Too many failed attempts. Account locked for 15 minutes.' });
     }
 
     // 2. Authenticate
-    if (username === process.env.ADMIN_USER) {
-      const match = await bcrypt.compare(password, process.env.ADMIN_PASS_HASH);
+    if (submittedUsername === expectedUsername) {
+      const match = await bcrypt.compare(password, adminCredentials.passwordHash);
       if (match) {
-        // Success - Clear attempts
-        await db.query('DELETE FROM admin_login_attempts WHERE ip_address = $1', [ip_address]);
+        try {
+          await db.query('DELETE FROM admin_login_attempts WHERE ip_address = $1', [ip_address]);
+        } catch (clearError) {
+          console.error('Admin attempt clear warning:', clearError.message);
+        }
+
         req.session.adminLoggedIn = true;
-        return res.redirect('/admin/dashboard');
+
+        return req.session.save((sessionError) => {
+          if (sessionError) {
+            console.error('Admin session save error:', sessionError.message);
+            return res.render('admin/login', { error: 'Login session could not be established. Please try again.' });
+          }
+
+          return res.redirect('/admin/dashboard');
+        });
       }
     }
 
     // 3. Log failed attempt
-    await db.query('INSERT INTO admin_login_attempts (ip_address) VALUES ($1)', [ip_address]);
+    try {
+      await db.query('INSERT INTO admin_login_attempts (ip_address) VALUES ($1)', [ip_address]);
+    } catch (insertError) {
+      console.error('Admin attempt log warning:', insertError.message);
+    }
     res.render('admin/login', { error: 'Invalid username or password' });
 
   } catch (error) {
