@@ -8,6 +8,10 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const isProduction = process.env.NODE_ENV === 'production';
+const sessionCookieSecure = process.env.SESSION_COOKIE_SECURE === 'true';
+
+app.set('trust proxy', true);
 
 // Security Middleware
 app.use(helmet({
@@ -47,7 +51,13 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'smaatech-careers-secret-fallback',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 24 * 60 * 60 * 1000 } // 24 hours
+  proxy: isProduction,
+  cookie: {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: sessionCookieSecure,
+    maxAge: 24 * 60 * 60 * 1000,
+  } // 24 hours
 }));
 
 // View Engine (EJS for Admin Panel)
@@ -76,6 +86,18 @@ app.use('/api/apply', csrfProtection, applyRateLimit, applyRoutes);
 // Redirect old paths to main career page
 app.get('/career/index.html', (req, res) => res.redirect(301, '/career'));
 app.get('/careers', (req, res) => res.redirect(301, '/career'));
+app.get('/career/admin', (req, res) => {
+  if (req.session.adminLoggedIn) {
+    return res.redirect('/admin/dashboard');
+  }
+
+  return res.redirect('/admin/login');
+});
+app.get('/career/admin/login', (req, res) => res.redirect('/admin/login'));
+app.get('/career/admin/dashboard', (req, res) => res.redirect('/admin/dashboard'));
+app.get('/career/admin/jobs', (req, res) => res.redirect('/admin/jobs'));
+app.get('/career/admin/applications', (req, res) => res.redirect('/admin/applications'));
+app.get('/career/admin/logout', (req, res) => res.redirect('/admin/logout'));
 
 // Main Career Page Route
 app.get('/career', (req, res) => {
@@ -110,6 +132,29 @@ const syncDB = async () => {
         is_active BOOLEAN DEFAULT true,
         created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
       )
+    `);
+
+    await db.query(`
+      DO $$
+      BEGIN
+        IF EXISTS (
+          SELECT 1
+          FROM information_schema.columns
+          WHERE table_name = 'job_postings'
+            AND column_name = 'is_active'
+            AND data_type <> 'boolean'
+        ) THEN
+          ALTER TABLE job_postings
+            ALTER COLUMN is_active DROP DEFAULT,
+            ALTER COLUMN is_active TYPE BOOLEAN USING (
+              CASE
+                WHEN LOWER(COALESCE(is_active::text, '1')) IN ('1', 'true', 't', 'yes', 'y', 'on') THEN TRUE
+                ELSE FALSE
+              END
+            ),
+            ALTER COLUMN is_active SET DEFAULT TRUE;
+        END IF;
+      END $$;
     `);
 
     // 2. Create career_applications table

@@ -22,10 +22,13 @@ import { ProjectsDirectory } from './views/ProjectsDirectory';
 import { ProjectColdStorage } from './views/ProjectColdStorage';
 import { ProjectWorks } from './views/ProjectWorks';
 import { CareersView } from './views/Careers.tsx';
+import { DivisionDetail } from './views/DivisionDetail';
+import { divisionMap } from './data/divisions';
 
 function App() {
   const [view, setView] = useState<string>('home');
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const activeDivision = view.startsWith('division:') ? divisionMap.get(view.replace('division:', '')) : null;
 
   return (
     <div className="min-h-screen flex flex-col bg-space-900 text-white font-sans selection:bg-brand-500 selection:text-white">
@@ -47,7 +50,7 @@ function App() {
             <StatsSection />
             <PartnersStrip />
             <AboutSection />
-            <ServicesSection />
+            <ServicesSection setView={setView} />
             <ProductsSection />
             <TeamSection />
             <CaseStudySection />
@@ -81,9 +84,15 @@ function App() {
             <ProjectWorks setView={setView} />
           </div>
         )}
+
+        {activeDivision && (
+          <div className="animate-in fade-in duration-500">
+            <DivisionDetail division={activeDivision} setView={setView} />
+          </div>
+        )}
       </main>
       
-      <Footer />
+      <Footer setView={setView} />
       <ScrollToTop />
     </div>
   );

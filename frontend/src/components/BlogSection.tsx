@@ -5,22 +5,25 @@ const posts = [
   {
     category: 'Water Infrastructure',
     date: 'April 10, 2025',
-    title: 'Water Treatment Automation in Odisha: What\'s Changing in 2025',
-    excerpt: 'From manual valve operation to real-time SCADA dashboards — how smart automation is transforming water delivery across rural Odisha.',
+    title: "Water Treatment Automation in Odisha: What's Changing in 2025",
+    excerpt:
+      'From manual valve operation to real-time SCADA dashboards, smart automation is improving visibility across water delivery projects in Odisha.',
     photo: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&h=380&fit=crop&q=80',
   },
   {
     category: 'IoT & Agritech',
     date: 'March 22, 2025',
-    title: 'How IoT Sensors Are Reducing Post-Harvest Losses in Agriculture',
-    excerpt: 'Precision temperature and humidity monitoring inside cold storage units is helping farmers across Eastern India save up to 40% of their produce.',
+    title: 'How IoT Sensors Support Better Storage Decisions',
+    excerpt:
+      'Temperature and humidity monitoring inside cold storage units helps operators protect produce quality and respond faster to storage issues.',
     photo: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=380&fit=crop&q=80',
   },
   {
     category: 'Solar EPC',
     date: 'February 14, 2025',
-    title: 'Solar EPC Projects: A Complete Guide for Rural Communities',
-    excerpt: 'Off-grid solar solutions are becoming the backbone of rural electrification. Here\'s what communities need to know before starting a solar EPC project.',
+    title: 'Solar EPC Projects: A Practical Guide for Rural Communities',
+    excerpt:
+      "Off-grid solar solutions can support rural electrification when project planning, site readiness, and maintenance are handled clearly from the start.",
     photo: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=380&fit=crop&q=80',
   },
 ];
@@ -54,7 +57,7 @@ export function BlogSection() {
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {posts.map((post, i) => (
             <motion.article
-              key={i}
+              key={post.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
@@ -82,14 +85,12 @@ export function BlogSection() {
                 <h3 className="text-lg font-bold text-white mb-3 leading-snug group-hover:text-brand-400 transition-colors">
                   {post.title}
                 </h3>
-                <p className="text-slate-400 text-sm font-light leading-relaxed flex-grow">
-                  {post.excerpt}
-                </p>
+                <p className="text-slate-400 text-sm font-light leading-relaxed flex-grow">{post.excerpt}</p>
                 <a
-                  href="#"
+                  href="#contact"
                   className="inline-flex items-center gap-2 text-brand-400 text-sm font-semibold mt-6 hover:gap-3 transition-all"
                 >
-                  Read More <ArrowRight className="w-4 h-4" />
+                  Discuss Topic <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
             </motion.article>

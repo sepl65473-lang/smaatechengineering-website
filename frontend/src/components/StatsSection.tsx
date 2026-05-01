@@ -1,32 +1,41 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FolderCheck, IndianRupee, Users, MapPin } from 'lucide-react';
+import { FolderCheck, IndianRupee, MapPin, Users } from 'lucide-react';
 
 const stats = [
   { icon: FolderCheck, label: 'Successful Projects', target: 50, suffix: '+', prefix: '' },
-  { icon: IndianRupee,  label: 'Engineering Value',  target: 15, suffix: 'Cr+', prefix: '₹' },
-  { icon: Users,        label: 'Team Experts',        target: 50, suffix: '+', prefix: '' },
-  { icon: MapPin,       label: 'Villages Served',     target: 20, suffix: '+', prefix: '' },
+  { icon: IndianRupee, label: 'Engineering Value', target: 15, suffix: 'Cr+', prefix: 'INR ' },
+  { icon: Users, label: 'Team Experts', target: 50, suffix: '+', prefix: '' },
+  { icon: MapPin, label: 'Villages Served', target: 20, suffix: '+', prefix: '' },
 ];
 
 function useCountUp(target: number, duration = 1800, active: boolean) {
   const [count, setCount] = useState(0);
+
   useEffect(() => {
     if (!active) return;
+
     let start = 0;
     const step = Math.ceil(target / (duration / 16));
     const timer = setInterval(() => {
       start += step;
-      if (start >= target) { setCount(target); clearInterval(timer); }
-      else setCount(start);
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(start);
+      }
     }, 16);
+
     return () => clearInterval(timer);
   }, [target, duration, active]);
+
   return count;
 }
 
-function StatCard({ stat, active, index }: { stat: typeof stats[0]; active: boolean; index: number }) {
+function StatCard({ stat, active, index }: { stat: (typeof stats)[0]; active: boolean; index: number }) {
   const count = useCountUp(stat.target, 1800, active);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -38,7 +47,9 @@ function StatCard({ stat, active, index }: { stat: typeof stats[0]; active: bool
         <stat.icon className="w-7 h-7 text-brand-400" strokeWidth={1.5} />
       </div>
       <div className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tighter">
-        {stat.prefix}{count}{stat.suffix}
+        {stat.prefix}
+        {count}
+        {stat.suffix}
       </div>
       <p className="text-sm font-semibold text-slate-400 uppercase tracking-widest">{stat.label}</p>
     </motion.div>
@@ -52,10 +63,17 @@ export function StatsSection() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setActive(true); observer.disconnect(); } },
-      { threshold: 0.3 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setActive(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 },
     );
+
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
@@ -85,7 +103,7 @@ export function StatsSection() {
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, i) => (
-            <StatCard key={i} stat={stat} active={active} index={i} />
+            <StatCard key={stat.label} stat={stat} active={active} index={i} />
           ))}
         </div>
       </div>

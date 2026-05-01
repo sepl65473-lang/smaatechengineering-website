@@ -6,7 +6,7 @@ export const companyProfile = {
   phoneCompact: '+91 674 662-1100',
   phoneHref: 'tel:+916746621100',
   locationShort: 'Bhubaneswar, Odisha',
-  registeredOffice: 'Plot No. 1022/2750, Bhubaneswar Sahara Unit No. 34, Bhubaneswar, Odisha.',
+  registeredOffice: 'Bhubaneswar',
   brochureUrl: null as string | null,
   whatsappUrl: null as string | null,
   socials: {
