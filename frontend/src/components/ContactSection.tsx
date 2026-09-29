@@ -70,7 +70,7 @@ export function ContactSection() {
           </motion.p>
         </div>
 
-        <div className="grid lg:grid-cols-5 gap-12 lg:gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-8 max-w-6xl mx-auto">
           
           {/* Contact Info */}
           <motion.div 
@@ -78,9 +78,9 @@ export function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-2 space-y-8"
+            className="min-w-0 lg:col-span-2 space-y-8"
           >
-            <div className="rounded-3xl border border-white/15 bg-white p-8 shadow-[0_22px_70px_-40px_rgba(0,0,0,0.7)] transition-colors group hover:border-brand-500/30">
+            <div className="rounded-3xl border border-white/15 bg-white p-6 sm:p-8 shadow-[0_22px_70px_-40px_rgba(0,0,0,0.7)] transition-colors group hover:border-brand-500/30">
               <h3 className="text-2xl font-bold text-slate-950 mb-8">Corporate Headquarters</h3>
               
               <div className="space-y-6">
@@ -95,15 +95,15 @@ export function ContactSection() {
                 
                 <div className="flex items-center group/link cursor-pointer">
                   <Mail className="w-6 h-6 text-brand-400 mr-4 flex-shrink-0" />
-                  <div className="flex-1">
-                    <p className="font-bold text-slate-950 group-hover/link:text-brand-500 transition-colors">{companyProfile.email}</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold text-slate-950 [overflow-wrap:anywhere] sm:text-base group-hover/link:text-brand-500 transition-colors">{companyProfile.email}</p>
                   </div>
                   <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover/link:text-brand-400 transition-colors opacity-0 group-hover/link:opacity-100" />
                 </div>
 
                 <div className="flex items-center group/link cursor-pointer">
                   <Phone className="w-6 h-6 text-brand-400 mr-4 flex-shrink-0" />
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <p className="font-bold text-slate-950 group-hover/link:text-brand-500 transition-colors">{companyProfile.phoneDisplay}</p>
                   </div>
                   <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover/link:text-brand-400 transition-colors opacity-0 group-hover/link:opacity-100" />
@@ -111,7 +111,7 @@ export function ContactSection() {
               </div>
             </div>
 
-            <div className="p-8 rounded-3xl border border-brand-300/30 bg-[#0b2533]/90 shadow-[0_18px_46px_-34px_rgba(0,0,0,0.9)] backdrop-blur-md">
+            <div className="p-6 sm:p-8 rounded-3xl border border-brand-300/30 bg-[#0b2533]/90 shadow-[0_18px_46px_-34px_rgba(0,0,0,0.9)] backdrop-blur-md">
               <h4 className="font-bold text-[#ffffff] mb-2 italic">Rapid Engineering Inquiry</h4>
               <p className="text-sm text-[#dbeafe] leading-relaxed font-normal">Response times for project architecting typically range between 24-48 business hours.</p>
             </div>
@@ -123,9 +123,9 @@ export function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-3"
+            className="min-w-0 lg:col-span-3"
           >
-            <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-white p-8 shadow-[0_22px_70px_-40px_rgba(0,0,0,0.7)] md:p-12">
+            <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-white p-6 shadow-[0_22px_70px_-40px_rgba(0,0,0,0.7)] sm:p-8 md:p-12">
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 blur-3xl rounded-full"></div>
               
               <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
