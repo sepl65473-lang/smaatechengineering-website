@@ -73,6 +73,7 @@ export function Navbar({ currentView, setView, openLoginModal }: NavbarProps) {
   };
 
   return (
+    <>
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass-nav py-3' : 'glass-nav py-4'}`}>
       <div className="container-custom">
         <div className="flex justify-between items-center">
@@ -168,15 +169,23 @@ export function Navbar({ currentView, setView, openLoginModal }: NavbarProps) {
           </div>
 
           <div className="lg:hidden flex items-center">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isOpen}
+              className="-mr-2 p-2 text-white focus:outline-none"
+            >
               {isOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
             </button>
           </div>
         </div>
       </div>
+    </nav>
 
-      <div className={`fixed inset-0 bg-space-950/95 backdrop-blur-2xl z-40 transition-transform duration-300 lg:hidden ${isOpen ? 'translate-x-0' : 'translate-x-full'} pt-24 px-6`}>
-        <div className="flex h-full flex-col space-y-6 text-center">
+      {/* Mobile menu lives outside <nav>: the nav's backdrop-filter would otherwise make it
+          the containing block for this fixed panel and shrink it to the header's height. */}
+      <div className={`fixed inset-0 bg-space-950/95 backdrop-blur-2xl z-40 overflow-y-auto transition-transform duration-300 lg:hidden ${isOpen ? 'translate-x-0' : 'invisible translate-x-full'} pt-24 pb-10 px-6`}>
+        <div className="flex min-h-full flex-col space-y-6 text-center">
           {navLinks.map((link) => (
             <div key={link.name}>
               {link.children ? (
@@ -194,7 +203,7 @@ export function Navbar({ currentView, setView, openLoginModal }: NavbarProps) {
                 link.isAnchor ? (
                   <a
                     href={link.href}
-                    className="text-2xl font-bold text-slate-400 hover:text-white transition-colors"
+                    className="text-2xl font-bold text-slate-700 hover:text-brand-600 transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {link.name}
@@ -202,7 +211,7 @@ export function Navbar({ currentView, setView, openLoginModal }: NavbarProps) {
                 ) : (
                   <button
                     type="button"
-                    className="text-2xl font-bold text-slate-400 hover:text-white transition-colors"
+                    className="text-2xl font-bold text-slate-700 hover:text-brand-600 transition-colors"
                     onClick={() => {
                       setIsOpen(false);
                       link.action?.();
@@ -261,6 +270,6 @@ export function Navbar({ currentView, setView, openLoginModal }: NavbarProps) {
           </div>
         </div>
       </div>
-    </nav>
+    </>
   );
 }
