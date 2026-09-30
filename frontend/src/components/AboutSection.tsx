@@ -17,8 +17,8 @@ export function AboutSection() {
             <div className="relative aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden glass-card p-2 md:p-4 border border-white/10">
                {/* Clean high-tech imagery */}
                <img 
-                 src="/images/training.png"
-                 alt="Smaatech Training & Infrastructure" 
+                 src="/images/about-headquarters.png"
+                 alt="Smaatech Group team at the Bhubaneswar headquarters" 
                  className="w-full h-full object-cover rounded-2xl filter contrast-110 brightness-75"
                  loading="lazy"
                />
