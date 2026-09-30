@@ -33,7 +33,7 @@ export const divisions: DivisionRecord[] = [
     summary: 'Planning, execution support, and instrumentation alignment for treatment, storage, transmission, and distribution assets.',
     overview:
       'Smaatech supports water infrastructure teams with practical engineering coordination across civil works, process utility equipment, reservoir systems, piping networks, and field-level handover. The focus is on dependable execution: understanding site conditions, coordinating vendors and field teams, and keeping the final system maintainable for operators.',
-    heroImage: '/images/water.png',
+    heroImage: '/images/water-treatment-plant.jpg',
     detailImage: '/images/water-treatment-site.jpeg',
     mediaCaption: 'This water treatment site shows practical civil execution around clarifier tanks, treatment buildings, overhead storage, and utility circulation areas.',
     mediaDetail:
@@ -60,7 +60,7 @@ export const divisions: DivisionRecord[] = [
     summary: 'Electrical and mechanical integration support for utility systems, panels, control rooms, and industrial facilities.',
     overview:
       'The electro-mechanical service brings together equipment integration, utility connections, panel coordination, mechanical readiness, and field support. It is useful when a project needs a practical bridge between design intent and actual operating conditions on site.',
-    heroImage: '/images/automation.png',
+    heroImage: '/images/electro-mechanical-pump-house-mcc.jpg',
     detailImage: '/images/electro-mechanical-panel-room.jpeg',
     mediaCaption: 'This panel-room installation shows practical electro-mechanical execution around MCC, feeder, and control-panel readiness for site utilities.',
     mediaDetail:
@@ -87,7 +87,7 @@ export const divisions: DivisionRecord[] = [
     summary: 'Monitoring, control, field instrumentation, and SCADA support for reliable plant and utility visibility.',
     overview:
       'Smaatech helps teams connect field instruments, panels, PLC/HMI systems, and reporting workflows so operators can see what is happening in real time. The service is built around practical control logic, readable alarms, reliable signal mapping, and maintainable operating screens.',
-    heroImage: '/images/automation-scada-hmi-screen.jpeg',
+    heroImage: '/images/scada-hmi-watco-dashboard.jpg',
     detailImage: '/images/automation-scada-hmi-screen.jpeg',
     mediaCaption:
       'This SCADA/HMI screen brings process equipment, alarms, temperature and pressure values, fan status, filter systems, and control points into one operator view.',
@@ -115,7 +115,7 @@ export const divisions: DivisionRecord[] = [
     summary: 'Condition monitoring, remote alerts, and field-linked sensing for agriculture, storage, and operational teams.',
     overview:
       'Agritech IoT work focuses on practical monitoring for storage, handling, and agriculture-linked operations. The goal is to help teams track conditions, receive timely alerts, and make better operating decisions without making the system difficult to run in the field.',
-    heroImage: '/images/agritech.png',
+    heroImage: '/images/solar-iot-cold-storage-system.jpg',
     detailImage: '/images/agritech-greenhouse-robotics.jpg',
     mediaCaption:
       'Greenhouse automation uses sensors, robotic handling, and crop-zone monitoring to support consistent growing conditions and careful harvesting workflows.',
@@ -144,7 +144,7 @@ export const divisions: DivisionRecord[] = [
     overview:
       'Smaatech approaches solar EPC work with an execution-first mindset. The service supports project planning, site readiness, electrical integration, vendor coordination, and verification so solar installations can be delivered with realistic timelines and clear operating expectations.',
     heroImage: '/images/solar.png',
-    detailImage: '/images/hero_solar_refrigeration.png',
+    detailImage: '/images/solar-epc-renewable-energy.webp',
     mediaCaption: 'Solar EPC work needs clean site planning, electrical coordination, and verification before the system is handed over for operation.',
     focusAreas: [
       'Site assessment support and execution planning for solar installations',

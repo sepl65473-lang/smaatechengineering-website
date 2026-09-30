@@ -20,7 +20,7 @@ export function TeamSection() {
       <div className="pointer-events-none absolute right-0 top-10 h-72 w-72 rounded-full bg-brand-500/14 blur-[110px]" />
 
       <div className="container-custom relative z-10">
-        <div className="mx-auto mb-8 max-w-6xl">
+        <div className="mx-auto mb-8 max-w-[1088px]">
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -40,19 +40,22 @@ export function TeamSection() {
           </motion.h2>
         </div>
 
-        <div className="mx-auto grid max-w-6xl items-center gap-6 md:grid-cols-[minmax(0,320px)_1fr] lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-8">
+        <div className="mx-auto grid max-w-[1088px] items-center gap-6 md:grid-cols-[minmax(0,300px)_1fr] lg:grid-cols-[minmax(0,370px)_1fr] xl:items-stretch lg:gap-8">
           <motion.div
             initial={{ opacity: 0, x: -36 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65 }}
-            className="mx-auto w-full max-w-[300px] md:max-w-[360px] rounded-[24px] border border-[#9bb2c2] bg-white p-2.5 shadow-[0_28px_74px_-46px_rgba(15,23,42,0.72)]"
+            className="mx-auto w-full max-w-[280px] md:max-w-[370px] rounded-[24px] border border-[#9bb2c2] bg-white p-2.5 shadow-[0_28px_74px_-46px_rgba(15,23,42,0.72)]"
           >
-            <div className="relative overflow-hidden rounded-[18px] bg-[#e9e1d6]">
+            <div className="relative overflow-hidden rounded-[18px] bg-[#e9e1d6] xl:h-full">
+              {/* Natural aspect ratio (768x1292) so the full portrait is shown uncropped */}
               <img
                 src="/images/team/smaatech-md-ceo.jpg"
                 alt="Manoj Kumar Mallick, Managing Director and CEO of Smaatech Group"
-                className="aspect-[4/5] w-full object-cover object-[center_30%]"
+                width={768}
+                height={1292}
+                className="block h-auto w-full xl:h-full xl:object-cover"
                 loading="lazy"
               />
             </div>

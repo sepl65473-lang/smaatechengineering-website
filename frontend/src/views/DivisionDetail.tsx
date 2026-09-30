@@ -78,14 +78,20 @@ export function DivisionDetail({ division, setView }: DivisionDetailProps) {
             </div>
 
             <div className="glass-card overflow-hidden p-0">
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-72 overflow-hidden bg-slate-900 md:h-80">
+                {/* Blurred copy fills the frame so landscape and portrait photos both show uncropped */}
+                <img
+                  src={division.heroImage}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 h-full w-full scale-110 object-cover opacity-60 blur-2xl"
+                />
                 <img
                   src={division.heroImage}
                   alt={`${division.title} field reference`}
-                  className="h-full w-full object-cover"
+                  className="relative h-full w-full object-contain"
                   loading="eager"
                 />
-                <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-950/35 to-transparent" />
               </div>
 
               <div className="p-6">
@@ -126,11 +132,18 @@ export function DivisionDetail({ division, setView }: DivisionDetailProps) {
       <section className="py-16 md:py-20">
         <div className="container-custom">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-stretch">
-            <div className="glass-card overflow-hidden">
+            <div className="glass-card relative min-h-[18rem] overflow-hidden bg-slate-900 p-0">
+              {/* Same uncropped treatment as the hero photo: blurred fill behind a contained image */}
+              <img
+                src={division.detailImage}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 h-full w-full scale-110 object-cover opacity-60 blur-2xl"
+              />
               <img
                 src={division.detailImage}
                 alt={`${division.title} practical site work`}
-                className="h-72 w-full object-cover md:h-full"
+                className="relative h-72 w-full object-contain md:absolute md:inset-0 md:h-full"
                 loading="lazy"
               />
             </div>

@@ -4,12 +4,20 @@ import { ArrowLeft, ArrowRight, CheckCircle } from 'lucide-react';
 
 const gallerySlides = [
   {
-    image: '/images/project-gallery/iot-control-board-assembly.jpeg',
+    image: '/images/project-gallery/iot-control-board-lab.jpg',
     title: 'IoT Control Board Assembly',
     category: 'Electronics Lab',
     description: 'Prototype board assembly and testing for connected field-control hardware.',
     position: 'center 28%',
     note: 'Custom IoT control boards assembled in-house at our Electronics Lab. Each board is tested for field deployment in remote monitoring and automation applications.',
+  },
+  {
+    image: '/images/project-gallery/cold-storage-iot-monitoring-dashboard.png',
+    title: 'Cold Storage IoT Monitoring Dashboard',
+    category: 'IoT Platform',
+    description: 'Remote view of chamber temperature, humidity, gas levels, and door alerts across cold-storage assets.',
+    position: 'center center',
+    note: 'Cloud dashboard for cold-storage monitoring — live temperature and humidity against set limits, CO2 and PH3 readings, asset online/offline status, location mapping, temperature trends, and door-open alerts per chamber.',
   },
   {
     image: '/images/project-gallery/electromagnetic-flow-meter-converter.jpeg',
@@ -28,12 +36,20 @@ const gallerySlides = [
     note: 'Panel wiring executed to IEC standards — PLC, relay, and terminal blocks configured for programmable logic control in industrial and water-sector installations.',
   },
   {
-    image: '/images/project-gallery/clear-water-pump-house.jpeg',
+    image: '/images/project-gallery/clear-water-pump-house-new.jpg',
     title: 'Clear Water Pump House',
     category: 'Water Utility',
     description: 'Pump-house layout serving treated-water movement through plant distribution lines.',
     position: 'center center',
     note: 'Pump house infrastructure built for treated water delivery, integrating VFD-controlled pumps and SCADA-linked flow monitoring for efficient distribution.',
+  },
+  {
+    image: '/images/project-gallery/wtp-inlet-chamber-flash-mixer.jpg',
+    title: 'WTP Inlet Chamber & Flash Mixer',
+    category: 'Water Treatment',
+    description: 'Inlet channel with sluice gate and flash-mixer drive ahead of the clariflocculator.',
+    position: 'center center',
+    note: 'Raw-water inlet works at a treatment plant — hand-wheel sluice gate for flow isolation and a flash-mixer drive for rapid coagulant mixing before water enters the clariflocculator.',
   },
   {
     image: '/images/project-gallery/aeration-unit-hmi-screen.jpeg',
@@ -52,12 +68,36 @@ const gallerySlides = [
     note: 'Chemical dosing control interface deployed at KWSS Gunpur Chemical House — manages alum and lime dosing with automated setpoint control and live pump status.',
   },
   {
+    image: '/images/project-gallery/dosing-house-scada-workstation.jpg',
+    title: 'Dosing House SCADA Workstation',
+    category: 'SCADA Operations',
+    description: 'Operator monitoring alum, lime, chlorine, and PAC dosing from the panel-mounted SCADA station.',
+    position: 'center center',
+    note: 'Panel-mounted SCADA workstation for the treatment-plant dosing house — alum, lime, chlorine, and PAC dosing tanks, agitators, and pumps are monitored and controlled from a single screen.',
+  },
+  {
     image: '/images/project-gallery/backwash-pump-hmi-screen.jpeg',
     title: 'Backwash Pump HMI Screen',
     category: 'Filter Backwash',
     description: 'Backwash sequence monitoring interface used during filter cleaning operations.',
     position: 'center center',
     note: 'Automated backwash sequence control screen — reduces manual intervention during filter cleaning cycles and improves filter bed recovery efficiency.',
+  },
+  {
+    image: '/images/project-gallery/backwash-pump-starter-panels.jpg',
+    title: 'Backwash Pump Starter Panels',
+    category: 'Electrical Panels',
+    description: 'Wall-mounted pump starter panels with phase and trip indication, fed through a dedicated cable tray.',
+    position: 'center center',
+    note: 'Motor starter panels for the backwash pumps — each panel carries R-Y-B phase indication, ON/TRIP status lamps, and an auto/manual selector, alongside the 440 V incoming panel.',
+  },
+  {
+    image: '/images/project-gallery/dma-2-nimapara-scada-hmi.jpg',
+    title: 'DMA-2 Nimapara SCADA Overview',
+    category: 'Water Distribution SCADA',
+    description: 'Live distribution overview for the Nimapara section of the Puri WATCO network.',
+    position: 'center center',
+    note: 'SCADA overview for DMA-2 Nimapara (Puri, WATCO) — UGR and ESR levels, pump auto/manual control, control valves, and flow and pressure readings on four outgoing lines.',
   },
 ];
 
@@ -127,9 +167,17 @@ export function CaseStudySection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="rounded-3xl overflow-hidden glass-card border border-white/10 h-[350px] md:h-[450px] shadow-2xl"
+              className="rounded-3xl overflow-hidden glass-card border border-white/10 aspect-video shadow-2xl"
             >
-              <img src="/images/water.png" alt="Water Infrastructure" className="w-full h-full object-cover" />
+              {/* 16:9 frame matches the photo so the whole plant is visible uncropped */}
+              <img
+                src="/images/water-treatment-plant.jpg"
+                alt="Water treatment plant with clarifiers and an overhead tank"
+                width={1600}
+                height={900}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </motion.div>
           </div>
 
@@ -139,9 +187,17 @@ export function CaseStudySection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="rounded-3xl overflow-hidden glass-card border border-white/10 h-[350px] md:h-[450px] md:order-1 order-2 shadow-2xl"
+              className="rounded-3xl overflow-hidden glass-card border border-white/10 aspect-[1570/1002] md:order-1 order-2 shadow-2xl"
             >
-              <img src="/images/automation.png" alt="Automation and SCADA" className="w-full h-full object-cover" />
+              {/* Frame matches the photo's ratio so every HMI panel stays readable */}
+              <img
+                src="/images/scada-hmi-watco-dashboard.jpg"
+                alt="SCADA HMI overview screen for the WATCO 24x7 water supply project"
+                width={1570}
+                height={1002}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 50 }}
@@ -175,7 +231,7 @@ export function CaseStudySection() {
               <div className="text-amber-500 font-bold tracking-widest uppercase mb-4 text-sm">
                 SMART AGRICULTURE
               </div>
-              <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">IoT-Enabled Agritech Hubs</h3>
+              <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white">Solar Powered IoT Based Cold Storage System</h3>
               <p className="text-lg text-slate-400 font-light mb-8 leading-relaxed">
                 Bridging the gap between technology and the field with IoT monitoring, climate awareness, and practical smart warehousing support.
               </p>
@@ -195,9 +251,17 @@ export function CaseStudySection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="rounded-3xl overflow-hidden glass-card border border-white/10 h-[350px] md:h-[450px] shadow-2xl"
+              className="mx-auto w-full max-w-[400px] rounded-3xl overflow-hidden glass-card border border-white/10 aspect-[1086/1449] shadow-2xl"
             >
-              <img src="/images/agritech.png" alt="Agritech Hub" className="w-full h-full object-cover" />
+              {/* Portrait photo: narrower frame at the photo's own ratio shows the whole unit uncropped */}
+              <img
+                src="/images/solar-iot-cold-storage-system.jpg"
+                alt="Smaafrost solar powered IoT cold storage unit with rooftop solar panels and a temperature monitor"
+                width={1086}
+                height={1449}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </motion.div>
           </div>
         </div>
