@@ -13,7 +13,7 @@ import { StatsSection } from './components/StatsSection';
 import { PartnersStrip } from './components/PartnersStrip';
 import { TeamSection } from './components/TeamSection';
 import { BlogSection } from './components/BlogSection';
-import { QuoteCTABanner } from './components/QuoteCTABanner';
+import { TeamGallerySlider } from './components/TeamGallerySlider';
 import { ProductsSection } from './components/ProductsSection';
 import { ScrollToTop } from './components/ScrollToTop';
 import { FloatingContact } from './components/FloatingContact';
@@ -55,7 +55,7 @@ function App() {
             <TeamSection />
             <CaseStudySection />
             <BlogSection />
-            <QuoteCTABanner />
+            <TeamGallerySlider />
             <ContactSection />
             <FloatingContact />
           </div>
