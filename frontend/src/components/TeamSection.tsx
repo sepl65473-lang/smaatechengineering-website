@@ -20,7 +20,7 @@ export function TeamSection() {
       <div className="pointer-events-none absolute right-0 top-10 h-72 w-72 rounded-full bg-brand-500/14 blur-[110px]" />
 
       <div className="container-custom relative z-10">
-        <div className="mb-6 max-w-3xl">
+        <div className="mx-auto mb-8 max-w-6xl">
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -40,22 +40,20 @@ export function TeamSection() {
           </motion.h2>
         </div>
 
-        <div className="grid items-stretch gap-8 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-6xl items-center gap-6 md:grid-cols-[minmax(0,320px)_1fr] lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-8">
           <motion.div
             initial={{ opacity: 0, x: -36 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65 }}
-            className="relative overflow-hidden rounded-[28px] border border-[#9bb2c2] bg-[#dce9f1] p-4 shadow-[0_28px_74px_-46px_rgba(15,23,42,0.72)]"
+            className="mx-auto w-full max-w-[300px] md:max-w-[360px] rounded-[24px] border border-[#9bb2c2] bg-white p-2.5 shadow-[0_28px_74px_-46px_rgba(15,23,42,0.72)]"
           >
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.055)_1px,transparent_1px)] bg-[size:54px_54px]" />
-            <div className="absolute inset-x-8 bottom-4 h-32 rounded-full bg-brand-400/18 blur-3xl" />
-            <div className="relative z-10 flex h-full items-end justify-center overflow-hidden rounded-[22px] border border-white bg-white shadow-[inset_0_0_0_1px_rgba(15,23,42,0.05),0_20px_42px_-34px_rgba(15,23,42,0.85)]">
-              <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#f8fbff] to-transparent" />
+            <div className="relative overflow-hidden rounded-[18px] bg-[#e9e1d6]">
               <img
-                src="/images/team/smaatech-founder.png"
-                alt="Managing Director and CEO of Smaatech Group"
-                className="relative z-10 h-[340px] w-full object-cover object-center md:h-[400px] lg:h-full"
+                src="/images/team/smaatech-md-ceo.jpg"
+                alt="Manoj Kumar Mallick, Managing Director and CEO of Smaatech Group"
+                className="aspect-[4/5] w-full object-cover object-[center_30%]"
+                loading="lazy"
               />
             </div>
           </motion.div>
@@ -65,28 +63,28 @@ export function TeamSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.08 }}
-            className="flex flex-col justify-start rounded-[28px] border border-slate-300 bg-[#f8fbff] p-6 shadow-[0_28px_74px_-48px_rgba(15,23,42,0.65)] md:p-8"
+            className="flex flex-col justify-center rounded-[24px] border border-slate-300 bg-[#f8fbff] p-6 shadow-[0_28px_74px_-48px_rgba(15,23,42,0.65)] md:p-7"
           >
             <div className="mb-4">
-              <p className="mb-3 text-sm font-black uppercase tracking-[0.24em] text-brand-500">
+              <p className="mb-2 text-xs font-black uppercase tracking-[0.24em] text-brand-500">
                 Managing Director & CEO, Smaatech Group
               </p>
               <h3 className="text-2xl font-black leading-tight text-slate-950 md:text-3xl">
                 Manoj Kumar Mallick
               </h3>
-              <div className="mt-2 flex flex-wrap gap-2">
-                <span className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-4 py-2 text-sm font-bold text-brand-600">
-                  <MapPin className="h-4 w-4" />
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1.5 text-xs font-bold text-brand-600">
+                  <MapPin className="h-3.5 w-3.5" />
                   Bhubaneswar, Odisha
                 </span>
-                <span className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-700">
-                  <ShieldCheck className="h-4 w-4 text-brand-500" />
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700">
+                  <ShieldCheck className="h-3.5 w-3.5 text-brand-500" />
                   Engineering Execution
                 </span>
               </div>
             </div>
 
-            <p className="text-base leading-relaxed text-slate-700">
+            <p className="text-[15px] leading-relaxed text-slate-700">
               As the Founder and CEO of Smaatech Engineering Private Limited since September 2021, I lead
               with a strong focus on delivering innovative solutions in the water sector. With expertise in
               electro-mechanical and instrumentation automation, I oversee the construction of critical
@@ -94,7 +92,7 @@ export function TeamSection() {
               precision and efficiency in all projects.
             </p>
 
-            <p className="mt-4 text-base leading-relaxed text-slate-700">
+            <p className="mt-3 text-[15px] leading-relaxed text-slate-700">
               With over 19 years of professional experience, including leadership roles at Solvierone
               Corporation and Godrej &amp; Boyce, I have honed skills in sales and marketing leadership,
               product development, and business development. My mission is to drive strategic growth and
@@ -102,14 +100,14 @@ export function TeamSection() {
               advanced technology and collaborative efforts.
             </p>
 
-            <div className="mt-4 grid gap-2">
+            <ul className="mt-5 space-y-2.5 border-t border-slate-200 pt-5">
               {founderHighlights.map((item) => (
-                <div key={item} className="flex gap-3 rounded-2xl border border-slate-200 bg-white p-4">
-                  <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-500" />
+                <li key={item} className="flex gap-2.5">
+                  <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-500" />
                   <p className="text-sm font-medium leading-relaxed text-slate-700">{item}</p>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </motion.div>
         </div>
       </div>
